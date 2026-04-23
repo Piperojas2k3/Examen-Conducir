@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "¿Qué probabilidad de supervivencia tiene un peatón en un atropello a 30 km/h?",
+    "opciones": ["10%", "50%", "90%"],
+    "respuestaCorrecta": 2,
+    "esCritica": true,
+    "explicacion": "A 30 km/h la probabilidad de supervivencia es del 90%."
+  },
+  {
+    "id": 2,
+    "clase": "B",
+    "categoria": "Física",
+    "pregunta": "Si usted duplica la velocidad, ¿cuántas veces aumenta la fuerza del impacto?",
+    "opciones": ["Se duplica", "Se triplica", "Se cuadruplica"],
+    "respuestaCorrecta": 2,
+    "esCritica": true,
+    "explicacion": "Al doblar la velocidad, la energía del movimiento aumenta 4 veces."
+  },
+  {
+    "id": 3,
+    "clase": "B",
+    "categoria": "Mecánica",
+    "pregunta": "¿Qué indica un testigo de color rojo en el tablero de instrumentos?",
+    "opciones": ["Falla grave", "Precaución", "Sistema encendido"],
+    "respuestaCorrecta": 0,
+    "esCritica": false,
+    "explicacion": "El rojo indica advertencia de falla grave o atención inmediata."
+  },
+  {
+    "id": 4,
+    "clase": "B",
+    "categoria": "Seguridad Pasiva",
+    "pregunta": "¿Cuál es la función del apoyacabezas?",
+    "opciones": ["Comodidad del cuello", "Prevenir el efecto latigazo", "Sujetar el casco"],
+    "respuestaCorrecta": 1,
+    "esCritica": false,
+    "explicacion": "Su ajuste evita lesiones cervicales graves en siniestros."
+  }
+]

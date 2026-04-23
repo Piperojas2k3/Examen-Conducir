@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLicencia Chile - Simulador Gratuito</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>OpenLicencia CL</h1>
+            <div id="timer-box">Tiempo: <span id="timer">45:00</span></div>
+        </div>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </header>
+
+    <main id="main-app">
+        <section id="home-screen">
+            <h2>Selecciona tu clase de examen</h2>
+            <div class="menu-grid">
+                <button class="btn-clase" onclick="startExam('B')">Clase B (Vehículos)</button>
+                <button class="btn-clase" onclick="startExam('C')">Clase C (Motos)</button>
+                <button class="btn-clase" onclick="startExam('D')">Clase D (Maquinaria)</button>
+            </div>
+        </section>
+
+        <section id="quiz-screen" class="hidden">
+            <div id="question-header">
+                <span id="category-label">Categoría</span>
+                <span id="question-counter">Pregunta 1 de 35</span>
+            </div>
+            <p id="question-text"></p>
+            <div id="options-container"></div>
+            <button id="next-btn" disabled>Confirmar Respuesta</button>
+        </section>
+
+        <section id="result-screen" class="hidden">
+            <h2 id="result-status"></h2>
+            <div class="score-box">
+                <p>Puntaje:
