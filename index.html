@@ -27,20 +27,19 @@
             </div>
             <div class="info-section">
                 <h2>Bienvenido a TestPractic</h2>
-                <p>Plataforma gratuita con simuladores aleatorios idénticos al examen oficial de CONASET. Evalúa tus conocimientos, revisa tus fallos y estudia la teoría.</p>
+                <p>Plataforma gratuita con simuladores aleatorios idénticos al examen oficial de CONASET. Evalúa tus conocimientos, revisa tus fallos y estudia la teoría profesional.</p>
             </div>
         </section>
 
         <section id="exams-menu-screen" class="screen">
-            <h2>Selecciona tu clase de examen</h2>
+            <h2 style="margin-bottom: 20px;">Selecciona tu clase de examen</h2>
             <div class="menu-grid">
                 <button class="btn-clase clase-b" onclick="startExam('B')">🚗 Clase B (Automóvil)</button>
                 <button class="btn-clase clase-c" onclick="startExam('C')">🏍️ Clase C (Motocicleta)</button>
                 <button class="btn-clase clase-d" onclick="startExam('D')">🚜 Clase D (Maquinaria)</button>
             </div>
-            <div id="loading-msg" class="hidden">Preparando banco de preguntas...</div>
-        </section>
-
+            <div id="loading-msg" class="hidden" style="margin-top: 15px; text-align: center;">Preparando banco de preguntas...</div>
+        </section> 
         <section id="quiz-screen" class="screen">
             <div class="quiz-top-bar">
                 <div id="timer-box">⏱️ <span id="timer">45:00</span></div>
@@ -51,7 +50,7 @@
                 <span id="question-counter">Pregunta 1 de 35</span>
             </div>
             <div class="question-box">
-                <p id="question-text"></p>
+                <p id="question-text" class="question-text"></p>
             </div>
             <div id="options-container"></div>
             <div class="quiz-footer">
@@ -61,59 +60,61 @@
         </section>
 
         <section id="result-screen" class="screen">
-            <div class="result-header">
+            <div class="score-card">
                 <h2 id="result-status"></h2>
                 <p class="score-display">Puntaje Obtenido: <strong id="user-score">0</strong> / <span id="max-score-display">38</span></p>
-                <p id="pass-fail-msg"></p>
-            </div>
-            
-            <div id="improvement-plan">
-                <h3>📊 Tu Feedback Inmediato</h3>
-                <ul id="feedback-list"></ul>
-            </div>
+                <p id="pass-fail-msg" style="font-weight: bold; margin-bottom: 20px;"></p>
+                
+                <div id="improvement-plan" style="text-align: left;">
+                    <h3>📊 Tu Feedback Inmediato</h3>
+                    <ul id="feedback-list"></ul>
+                </div>
 
-            <div id="review-section">
-                <h3>Detalle de tus Respuestas</h3>
-                <p class="review-subtitle">Revisa tus aciertos y comprende el porqué de cada norma. <span style="color: #16a34a; font-weight: bold;">Verde = Correcta</span> | <span style="color: #dc2626; font-weight: bold;">Rojo = Tu error</span></p>
-                <div id="review-container"></div>
-            </div>
+                <div id="review-section" style="text-align: left; margin-top: 30px;">
+                    <h3>Detalle de tus Respuestas</h3>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">
+                        Comprende tus fallos para no repetirlos. <br>
+                        <span style="color: #16a34a; font-weight: bold;">Verde = Correcta</span> | 
+                        <span style="color: #dc2626; font-weight: bold;">Rojo = Tu error</span>
+                    </p>
+                    <div id="review-container"></div>
+                </div>
 
-            <div class="action-buttons">
-                <button class="btn-primary" onclick="switchScreen('history-screen'); loadHistory();">Ver mi Historial</button>
-                <button class="btn-secondary" onclick="switchScreen('exams-menu-screen')">Realizar Nuevo Ensayo</button>
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="switchScreen('history-screen'); loadHistory();">Ver mi Historial</button>
+                    <button class="btn-secondary" onclick="switchScreen('exams-menu-screen')">Nuevo Ensayo</button>
+                </div>
             </div>
         </section>
-
         <section id="history-screen" class="screen">
-            <h2>📊 Mi Historial de Exámenes</h2>
+            <h2 style="margin-bottom: 20px;">📊 Mi Historial de Exámenes</h2>
             <div id="history-container"></div>
         </section>
 
         <section id="temarios-screen" class="screen">
-            <h2>📚 Material de Estudio Teórico</h2>
-            <p>Selecciona el módulo que deseas repasar antes de tu evaluación.</p>
+            <h2 style="margin-bottom: 10px;">📚 Material de Estudio Teórico</h2>
+            <p style="color: #64748b; margin-bottom: 30px;">Selecciona el módulo que deseas repasar antes de tu evaluación municipal.</p>
+            
             <div class="temarios-grid">
-                <div class="card">
-                    <h3>🚗 Resumen Clase B</h3>
-                    <p>Física de conducción, mecánica y leyes de convivencia.</p>
-                    <button class="btn-secondary" onclick="mostrarTeoria('B')">Leer Temario</button>
+                <div class="card-estudio">
+                    <h5>🚗 Resumen Clase B</h5>
+                    <p>Física de conducción, mecánica y leyes de convivencia vial.</p>
+                    <button class="btn-leer" onclick="cambiarTemario('B')">Leer Temario</button>
                 </div>
-                <div class="card">
-                    <h3>🏍️ Resumen Clase C</h3>
+                <div class="card-estudio">
+                    <h5>🏍️ Resumen Clase C</h5>
                     <p>Física de 2 ruedas, interfiltrado y seguridad pasiva.</p>
-                    <button class="btn-secondary" onclick="mostrarTeoria('C')">Leer Temario</button>
+                    <button class="btn-leer" onclick="cambiarTemario('C')">Leer Temario</button>
                 </div>
-                <div class="card">
-                    <h3>🚜 Resumen Clase D</h3>
-                    <p>Maquinaria pesada, centro de gravedad y prevención.</p>
-                    <button class="btn-secondary" onclick="mostrarTeoria('D')">Leer Temario</button>
+                <div class="card-estudio">
+                    <h5>🚜 Resumen Clase D</h5>
+                    <p>Maquinaria pesada, estabilidad y prevención de riesgos.</p>
+                    <button class="btn-leer" onclick="cambiarTemario('D')">Leer Temario</button>
                 </div>
             </div>
             
-            <div id="teoria-content" class="hidden" style="margin-top: 2rem; background: #fff; padding: 2rem; border-radius: 8px; border-left: 5px solid var(--nav-blue);">
-                <h3 id="teoria-titulo"></h3>
-                <div id="teoria-texto" style="line-height: 1.6; color: #334155; margin-top: 1rem;"></div>
-            </div>
+            <div id="resumen-teorico-container" class="hidden">
+                </div>
         </section>
     </main>
 
