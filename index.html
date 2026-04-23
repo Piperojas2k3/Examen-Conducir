@@ -26,8 +26,8 @@
                 <button class="btn-hero" onclick="switchScreen('exams-menu-screen')">IR A LOS EXÁMENES DE CONDUCIR</button>
             </div>
             <div class="info-section">
-                <h2>Bienvenido a TestPractic, tu plataforma de conducción online</h2>
-                <p>Ofrecemos test de conducción online y gratuitos para preparar tu examen teórico desde donde quieras. Revisa tus resultados y descubre qué áreas mejorar.</p>
+                <h2>Bienvenido a TestPractic</h2>
+                <p>Plataforma gratuita con simuladores aleatorios idénticos al examen oficial de CONASET. Evalúa tus conocimientos, revisa tus fallos y estudia la teoría.</p>
             </div>
         </section>
 
@@ -38,7 +38,7 @@
                 <button class="btn-clase clase-c" onclick="startExam('C')">🏍️ Clase C (Motocicleta)</button>
                 <button class="btn-clase clase-d" onclick="startExam('D')">🚜 Clase D (Maquinaria)</button>
             </div>
-            <div id="loading-msg" class="hidden">Cargando base de datos...</div>
+            <div id="loading-msg" class="hidden">Preparando banco de preguntas...</div>
         </section>
 
         <section id="quiz-screen" class="screen">
@@ -63,33 +63,56 @@
         <section id="result-screen" class="screen">
             <div class="result-header">
                 <h2 id="result-status"></h2>
-                <p class="score-display">Puntaje: <strong id="user-score">0</strong> / 38</p>
+                <p class="score-display">Puntaje Obtenido: <strong id="user-score">0</strong> / <span id="max-score-display">38</span></p>
+                <p id="pass-fail-msg"></p>
             </div>
+            
             <div id="improvement-plan">
                 <h3>📊 Tu Feedback Inmediato</h3>
                 <ul id="feedback-list"></ul>
             </div>
+
+            <div id="review-section">
+                <h3>Detalle de tus Respuestas</h3>
+                <p class="review-subtitle">Revisa tus aciertos y comprende el porqué de cada norma. <span style="color: #16a34a; font-weight: bold;">Verde = Correcta</span> | <span style="color: #dc2626; font-weight: bold;">Rojo = Tu error</span></p>
+                <div id="review-container"></div>
+            </div>
+
             <div class="action-buttons">
-                <button class="btn-primary" onclick="switchScreen('history-screen'); loadHistory();">Ver mi Historial Completo</button>
-                <button class="btn-secondary" onclick="switchScreen('home-screen')">Volver al Inicio</button>
+                <button class="btn-primary" onclick="switchScreen('history-screen'); loadHistory();">Ver mi Historial</button>
+                <button class="btn-secondary" onclick="switchScreen('exams-menu-screen')">Realizar Nuevo Ensayo</button>
             </div>
         </section>
 
         <section id="history-screen" class="screen">
             <h2>📊 Mi Historial de Exámenes</h2>
-            <p>Aquí queda el registro de tus pruebas para que veas tu progreso.</p>
-            <div id="history-container">
-                </div>
+            <div id="history-container"></div>
         </section>
 
         <section id="temarios-screen" class="screen">
-            <h2>📚 Temarios de Estudio</h2>
+            <h2>📚 Material de Estudio Teórico</h2>
+            <p>Selecciona el módulo que deseas repasar antes de tu evaluación.</p>
             <div class="temarios-grid">
                 <div class="card">
-                    <h3>Libro del Nuevo Conductor (Clase B)</h3>
-                    <p>Resumen oficial de CONASET.</p>
-                    <button class="btn-secondary" disabled>Próximamente</button>
+                    <h3>🚗 Resumen Clase B</h3>
+                    <p>Física de conducción, mecánica y leyes de convivencia.</p>
+                    <button class="btn-secondary" onclick="mostrarTeoria('B')">Leer Temario</button>
                 </div>
+                <div class="card">
+                    <h3>🏍️ Resumen Clase C</h3>
+                    <p>Física de 2 ruedas, interfiltrado y seguridad pasiva.</p>
+                    <button class="btn-secondary" onclick="mostrarTeoria('C')">Leer Temario</button>
+                </div>
+                <div class="card">
+                    <h3>🚜 Resumen Clase D</h3>
+                    <p>Maquinaria pesada, centro de gravedad y prevención.</p>
+                    <button class="btn-secondary" onclick="mostrarTeoria('D')">Leer Temario</button>
+                </div>
+            </div>
+            
+            <div id="teoria-content" class="hidden" style="margin-top: 2rem; background: #fff; padding: 2rem; border-radius: 8px; border-left: 5px solid var(--nav-blue);">
+                <h3 id="teoria-titulo"></h3>
+                <div id="teoria-texto" style="line-height: 1.6; color: #334155; margin-top: 1rem;"></div>
             </div>
         </section>
     </main>
