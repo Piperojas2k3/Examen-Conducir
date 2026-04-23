@@ -3,13 +3,22 @@
     "id": 1,
     "clase": "B",
     "categoria": "Seguridad Vial",
-    "pregunta": "¿Cuál es la tasa de alcohol en la sangre que define legalmente la 'conducción bajo la influencia del alcohol' en Chile?",
+    "pregunta": "¿Cuál es la tasa de alcohol en la sangre que define legalmente la conducción 'bajo la influencia del alcohol' en Chile?",
     "opciones": ["0,1 a 0,5 gramos por mil.", "0,3 a 0,8 gramos por mil.", "Más de 0,8 gramos por mil."],
     "respuestaCorrecta": 1,
     "esCritica": true
   },
   {
     "id": 2,
+    "clase": "B",
+    "categoria": "Seguridad Pasiva",
+    "pregunta": "¿A partir de qué edad un niño puede viajar en el asiento del copiloto (delantero)?",
+    "opciones": ["Al cumplir 9 años.", "Al cumplir 12 años.", "Cuando mida más de 1.35 metros."],
+    "respuestaCorrecta": 1,
+    "esCritica": true
+  },
+  {
+    "id": 3,
     "clase": "B",
     "categoria": "Física de la Conducción",
     "pregunta": "Si duplicas la velocidad de tu vehículo, ¿cuántas veces aumenta la energía del movimiento (fuerza del impacto)?",
@@ -18,25 +27,151 @@
     "esCritica": true
   },
   {
-    "id": 3,
+    "id": 4,
     "clase": "B",
-    "categoria": "Seguridad Vial",
+    "categoria": "Seguridad Pasiva",
     "pregunta": "¿Cuál es la sanción por no utilizar un sistema de retención infantil (silla) para niños menores de 9 años?",
     "opciones": ["Infracción grave y multa.", "Infracción gravísima, multa y suspensión de licencia.", "Solo una amonestación verbal."],
     "respuestaCorrecta": 1,
     "esCritica": true
   },
   {
-    "id": 4,
+    "id": 5,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "¿Cómo afecta el consumo de alcohol al tiempo de reacción de un conductor?",
+    "opciones": ["Lo disminuye, el conductor reacciona más rápido.", "Lo aumenta, el conductor tarda más en reaccionar.", "No afecta el tiempo de reacción, solo la visión."],
+    "respuestaCorrecta": 1,
+    "esCritica": true
+  },
+  {
+    "id": 6,
     "clase": "B",
     "categoria": "Normas de Circulación",
-    "pregunta": "En un cruce no regulado por señales ni semáforos, ¿quién tiene el Derecho Preferente de Paso?",
-    "opciones": ["El vehículo que circula por la vía principal.", "El vehículo que aparece por la derecha del otro.", "El vehículo que llega primero al cruce."],
+    "pregunta": "¿A qué distancia mínima se debe estacionar de un grifo de incendio?",
+    "opciones": ["1 metro.", "5 metros.", "10 metros."],
     "respuestaCorrecta": 1,
     "esCritica": false
   },
   {
-    "id": 5,
+    "id": 7,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "Al conducir en un túnel, ¿qué luces debes llevar encendidas?",
+    "opciones": ["Luces de estacionamiento.", "Luces bajas, incluso si el túnel está iluminado.", "Solo las luces altas si no viene nadie de frente."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 8,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Cuándo puedes adelantar a otro vehículo por la derecha?",
+    "opciones": ["Nunca, siempre debe ser por la izquierda.", "Cuando el vehículo alcanzado esté realizando un viraje a la izquierda.", "En autopistas cuando hay mucha congestión."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 9,
+    "clase": "B",
+    "categoria": "Física de la Conducción",
+    "pregunta": "¿Qué es el 'aquaplaning' o hidroplaneo?",
+    "opciones": ["Cuando el motor se apaga por entrar agua al escape.", "Cuando los neumáticos pierden contacto con el pavimento por una capa de agua.", "Una técnica de frenado en superficies mojadas."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 10,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "Ante un cruce ferroviario a nivel sin barreras, ¿qué debes hacer?",
+    "opciones": ["Detenerse, mirar y escuchar antes de cruzar.", "Cruzar rápido para evitar quedar atrapado.", "Tocar la bocina para avisar al tren."],
+    "respuestaCorrecta": 0,
+    "esCritica": false
+  },
+  {
+    "id": 11,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Qué indica una luz amarilla en el semáforo?",
+    "opciones": ["Que puedes pasar si aceleras un poco.", "Prevención: debes detenerte, a menos que ya estés dentro del cruce.", "Que tienes la preferencia frente a los peatones."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 12,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Cuál es la distancia mínima que debe mantener un conductor al adelantar a un ciclista?",
+    "opciones": ["0,5 metros.", "1 metro.", "1,5 metros."],
+    "respuestaCorrecta": 2,
+    "esCritica": false
+  },
+  {
+    "id": 13,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "Si vas conduciendo y sientes sueño, ¿qué es lo más efectivo?",
+    "opciones": ["Subir el volumen de la radio o abrir la ventana.", "Tomar café cargado y seguir.", "Detenerse en un lugar seguro y dormir una siesta corta."],
+    "respuestaCorrecta": 2,
+    "esCritica": false
+  },
+  {
+    "id": 14,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Quién tiene la preferencia en una rotonda?",
+    "opciones": ["El que circula por dentro de la rotonda.", "El que va a entrar a la rotonda.", "El vehículo más grande."],
+    "respuestaCorrecta": 0,
+    "esCritica": false
+  },
+  {
+    "id": 15,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Qué significa una línea blanca discontinua (segmentada) al centro de la calzada?",
+    "opciones": ["Que está prohibido adelantar.", "Que se puede adelantar siempre que existan condiciones de seguridad.", "Que es una zona de estacionamiento."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 16,
+    "clase": "B",
+    "categoria": "Física de la Conducción",
+    "pregunta": "¿Qué sucede con la distancia de frenado si la presión de los neumáticos es muy baja?",
+    "opciones": ["La distancia de frenado disminuye.", "La distancia de frenado aumenta.", "Se mantiene igual, solo afecta el consumo."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 17,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "Al enfrentar una señal de 'CEDA EL PASO', ¿es obligatorio detenerse siempre?",
+    "opciones": ["Sí, siempre hay que llegar a velocidad cero.", "No, solo si vienen vehículos por la otra vía que tengan la preferencia.", "Solo si hay un carabinero presente."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 18,
+    "clase": "B",
+    "categoria": "Situaciones de Emergencia",
+    "pregunta": "¿Qué es lo primero que debes hacer al llegar a la escena de un accidente con heridos?",
+    "opciones": ["Mover a los heridos rápidamente para que no los atropellen.", "Darles agua o comida para que se calmen.", "Detener tu vehículo, proteger la zona y llamar a emergencias."],
+    "respuestaCorrecta": 2,
+    "esCritica": false
+  },
+  {
+    "id": 19,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Cuándo debes usar las luces altas en caminos rurales?",
+    "opciones": ["Siempre que sea de noche y no haya vehículos en sentido contrario.", "Solo cuando haya mucha niebla.", "Nunca, porque deslumbran a los animales."],
+    "respuestaCorrecta": 0,
+    "esCritica": false
+  },
+  {
+    "id": 20,
     "clase": "B",
     "categoria": "Mecánica Básica",
     "pregunta": "Si el pedal de freno se siente 'elástico' o llega hasta el fondo, ¿cuál es la causa más probable?",
@@ -45,7 +180,88 @@
     "esCritica": false
   },
   {
-    "id": 6,
+    "id": 21,
+    "clase": "B",
+    "categoria": "Mecánica Básica",
+    "pregunta": "¿Qué práctica ayuda a ahorrar combustible (Conducción Eficiente)?",
+    "opciones": ["Calentar el motor por más de 5 minutos antes de salir.", "Evitar frenazos y aceleraciones bruscas, manteniendo velocidad constante.", "Conducir siempre en marchas bajas."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 22,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "Ante la presencia de peatones ancianos, ¿qué debes considerar?",
+    "opciones": ["Que pueden necesitar más tiempo para cruzar y no debes apurarlos.", "Que siempre deben cederte el paso a ti porque vas más rápido.", "Que solo tienen preferencia en los semáforos."],
+    "respuestaCorrecta": 0,
+    "esCritica": false
+  },
+  {
+    "id": 23,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿En qué consiste la 'Regla de los tres segundos'?",
+    "opciones": ["Es el tiempo que debe durar un viraje.", "Es la distancia de seguridad mínima respecto al vehículo que va adelante.", "Es el tiempo que tarda un semáforo en cambiar de amarillo a rojo."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 24,
+    "clase": "B",
+    "categoria": "Situaciones de Emergencia",
+    "pregunta": "Al conducir con niebla densa, ¿cuál es la mejor recomendación?",
+    "opciones": ["Usar luces altas para romper la niebla.", "Encender las luces de advertencia de peligro (hacker) mientras circulas.", "Reducir la velocidad y usar luces bajas."],
+    "respuestaCorrecta": 2,
+    "esCritica": false
+  },
+  {
+    "id": 25,
+    "clase": "B",
+    "categoria": "Física de la Conducción",
+    "pregunta": "¿Qué es la 'Distancia de Reacción'?",
+    "opciones": ["El espacio que recorre el auto desde que frenas hasta que se detiene.", "El espacio recorrido desde que ves un peligro hasta que pisas el freno.", "La suma de la frenada y la percepción."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 26,
+    "clase": "B",
+    "categoria": "Situaciones de Emergencia",
+    "pregunta": "Al bajar una pendiente muy pronunciada, ¿cómo se deben usar los frenos?",
+    "opciones": ["Mantener el pedal de freno pisado todo el tiempo.", "Poner el auto en neutro para ahorrar combustible.", "Usar una marcha baja (frenado de motor) y usar el pedal solo cuando sea necesario."],
+    "respuestaCorrecta": 2,
+    "esCritica": false
+  },
+  {
+    "id": 27,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Qué significa que un semáforo tenga una flecha verde junto a la luz roja principal?",
+    "opciones": ["Que puedes virar en la dirección de la flecha con precaución.", "Que todos los autos pueden pasar.", "Que la flecha está mala y debes esperar la verde principal."],
+    "respuestaCorrecta": 0,
+    "esCritica": false
+  },
+  {
+    "id": 28,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "¿Cómo influye la fatiga en la visión del conductor?",
+    "opciones": ["Mejora la visión periférica.", "Produce visión de túnel y hace que la vista se canse más rápido.", "No influye en la visión, solo en los músculos."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 29,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Está permitido adelantar en un puente?",
+    "opciones": ["Sí, si no viene nadie de frente.", "No, está estrictamente prohibido por ley.", "Solo si el puente es muy ancho."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 30,
     "clase": "B",
     "categoria": "Normas de Circulación",
     "pregunta": "¿Cuál es la velocidad máxima permitida en zonas de escuela en horarios de entrada y salida?",
@@ -54,25 +270,52 @@
     "esCritica": true
   },
   {
-    "id": 7,
+    "id": 31,
     "clase": "B",
-    "categoria": "Situaciones de Emergencia",
-    "pregunta": "Si el motor de tu vehículo comienza a incendiarse, ¿qué es lo primero que debes hacer?",
-    "opciones": ["Echarle agua directamente al motor para enfriarlo.", "Detenerse, apagar el motor, evacuar y usar el extintor.", "Abrir el capó por completo para que se ventile."],
+    "categoria": "Mecánica Básica",
+    "pregunta": "¿Cuál es la función principal del convertidor catalítico?",
+    "opciones": ["Reducir la salida de ruidos del motor.", "Reducir la emisión de gases contaminantes.", "Aumentar la potencia del vehículo."],
     "respuestaCorrecta": 1,
     "esCritica": false
   },
   {
-    "id": 8,
+    "id": 32,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "Al estacionar un vehículo en una subida con cuneta, ¿hacia dónde deben quedar las ruedas delanteras?",
+    "opciones": ["Hacia la calzada (hacia afuera).", "Hacia el centro de la calzada.", "Paralelas a la acera."],
+    "respuestaCorrecta": 0,
+    "esCritica": false
+  },
+  {
+    "id": 33,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "En un cruce no regulado por señales ni semáforos, ¿quién tiene el Derecho Preferente de Paso?",
+    "opciones": ["El vehículo que circula por la vía principal.", "El vehículo que aparece por la derecha del otro.", "El vehículo que va a una velocidad más alta."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 34,
     "clase": "B",
     "categoria": "Seguridad Pasiva",
     "pregunta": "¿Cuál es la función principal del Airbag?",
-    "opciones": ["Reemplazar el uso del cinturón de seguridad.", "Complementar al cinturón para evitar impactos contra el interior.", "Evitar que el auto se vuelque."],
+    "opciones": ["Reemplazar el uso del cinturón de seguridad.", "Complementar al cinturón de seguridad para evitar impactos contra el interior del auto.", "Evitar que el auto se vuelque."],
     "respuestaCorrecta": 1,
     "esCritica": false
   },
   {
-    "id": 9,
+    "id": 35,
+    "clase": "B",
+    "categoria": "Mecánica Básica",
+    "pregunta": "¿Qué indica la salida de humo negro por el tubo de escape?",
+    "opciones": ["Que el motor está quemando aceite.", "Que hay una mala mezcla de combustible (exceso de combustible o falta de aire).", "Que el líquido refrigerante se está filtrando al motor."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 36,
     "clase": "C",
     "categoria": "Conducción Motocicletas",
     "pregunta": "Al conducir una motocicleta, ¿qué freno tiene mayor poder de detención?",
@@ -81,16 +324,16 @@
     "esCritica": false
   },
   {
-    "id": 10,
+    "id": 37,
     "clase": "C",
-    "categoria": "Conducción Motocicletas",
+    "categoria": "Seguridad Pasiva",
     "pregunta": "Para mejorar la visibilidad de la motocicleta de día, ¿qué acción es obligatoria?",
     "opciones": ["Usar chaleco reflectante.", "Llevar luces bajas encendidas en todo momento.", "Tocar la bocina en cada cruce."],
     "respuestaCorrecta": 1,
     "esCritica": true
   },
   {
-    "id": 11,
+    "id": 38,
     "clase": "D",
     "categoria": "Maquinaria",
     "pregunta": "Al circular por una vía pública con un tractor agrícola, ¿por dónde debe transitar?",
@@ -99,11 +342,11 @@
     "esCritica": false
   },
   {
-    "id": 12,
+    "id": 39,
     "clase": "D",
     "categoria": "Maquinaria",
     "pregunta": "¿Qué precaución adicional debe tener al operar una retroexcavadora en una zona urbana?",
-    "opciones": ["Señalizar con balizas destellantes y evitar movimientos bruscos de la pala.", "Transitar a más de 50 km/h para no generar tacos.", "Desconectar los frenos hidráulicos para ahorrar energía."],
+    "opciones": ["Señalizar con balizas destellantes y evitar movimientos bruscos.", "Transitar a más de 50 km/h para no generar tacos.", "Desconectar los frenos hidráulicos para ahorrar energía."],
     "respuestaCorrecta": 0,
     "esCritica": true
   }
