@@ -1,3 +1,6 @@
+// ==========================================
+// CONFIGURACIÓN Y VARIABLES GLOBALES
+// ==========================================
 let CONFIG = { total: 35, aprobar: 33, tiempo: 45 * 60, maxScore: 38 };
 
 let questions = [];
@@ -15,26 +18,28 @@ const RECOMENDACIONES = {
     "Dinámica Activa": "Para Clase C, repasa Contramanillar y distribución de frenado (70/30). Para Clase D, estabilidad y pendientes."
 };
 
+// --- NAVEGACIÓN ENTRE PANTALLAS ---
 function switchScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
     if (screenId !== 'quiz-screen') clearInterval(timerInterval);
-}
-
-async function startExam(clase) {
-    document.getElementById('loading-msg').classList.remove('hidden');
     
-    // Configuración Automática según Clase
+    // Si volvemos a temarios, ocultamos el cuadro de texto hasta que elijan uno
+    if (screenId === 'temarios-screen') {
+        const container = document.getElementById('resumen-teorico-container');
+        if (container) container.classList.add('hidden');
+    }
+}
+// --- INICIO DEL EXAMEN ---
+async function startExam(clase) {
+    const loadingMsg = document.getElementById('loading-msg');
+    loadingMsg.classList.remove('hidden');
+    
+    // Ajuste de reglas según Clase
     if (clase === 'D') {
-        CONFIG.total = 12;
-        CONFIG.aprobar = 10;
-        CONFIG.tiempo = 15 * 60;
-        CONFIG.maxScore = 12; // Clase D no suele tener doble puntaje oficial, pero el sistema lo soporta
+        CONFIG.total = 12; CONFIG.aprobar = 10; CONFIG.tiempo = 15 * 60; CONFIG.maxScore = 12;
     } else {
-        CONFIG.total = 35;
-        CONFIG.aprobar = 33;
-        CONFIG.tiempo = 45 * 60;
-        CONFIG.maxScore = 38; 
+        CONFIG.total = 35; CONFIG.aprobar = 33; CONFIG.tiempo = 45 * 60; CONFIG.maxScore = 38; 
     }
 
     try {
@@ -43,13 +48,14 @@ async function startExam(clase) {
         
         const data = await response.json();
         
-        // Filtra por clase, aleatoriza, y extrae la cantidad exacta (35 o 12)
+        // Filtra, aleatoriza y selecciona la cantidad de preguntas
         questions = data.filter(q => q.clase === clase || q.clase === "Todas")
                         .sort(() => 0.5 - Math.random())
                         .slice(0, CONFIG.total);
         
         if (questions.length === 0) {
-            alert(`Faltan preguntas de Clase ${clase} en JSON.`);
+            alert(`No hay suficientes preguntas de Clase ${clase} en el archivo.`);
+            loadingMsg.classList.add('hidden');
             return;
         }
 
@@ -57,17 +63,18 @@ async function startExam(clase) {
         currentIdx = 0;
         timeLeft = CONFIG.tiempo;
 
-        document.getElementById('loading-msg').classList.add('hidden');
+        loadingMsg.classList.add('hidden');
         switchScreen('quiz-screen');
         showQuestion();
         startTimer();
 
     } catch (error) {
         console.error(error);
-        alert("Asegúrate de que preguntas.json esté actualizado en GitHub.");
+        alert("Error: Revisa que el archivo 'preguntas.json' esté en la misma carpeta.");
     }
 }
 
+// --- MOSTRAR PREGUNTA ACTUAL ---
 function showQuestion() {
     const q = questions[currentIdx];
     const prevAnswer = userAnswers[currentIdx]; 
@@ -96,10 +103,10 @@ function showQuestion() {
 
     if (currentIdx === questions.length - 1) {
         nextBtn.innerText = "Finalizar Examen 🏁";
-        nextBtn.style.backgroundColor = "var(--danger)";
+        nextBtn.classList.add('btn-danger'); // Usa el color rojo de style.css
     } else {
         nextBtn.innerText = "Siguiente ➡️";
-        nextBtn.style.backgroundColor = "var(--success)";
+        nextBtn.classList.remove('btn-danger');
     }
 
     nextBtn.disabled = (prevAnswer === null);
@@ -119,9 +126,22 @@ document.getElementById('next-btn').onclick = () => {
     else calcularYMostrarResultados(); 
 };
 
+function startTimer() {
+    const timerEl = document.getElementById('timer');
+    timerInterval = setInterval(() => {
+        const min = Math.floor(timeLeft / 60);
+        const sec = timeLeft % 60;
+        timerEl.innerText = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        if (timeLeft <= 300) timerEl.style.color = "var(--danger)"; 
+        if (timeLeft <= 0) calcularYMostrarResultados();
+        timeLeft--;
+    }, 1000);
+}
+
+function updateProgress() { document.getElementById('progress-bar').style.width = ((currentIdx + 1) / questions.length * 100) + "%"; }
+// --- RESULTADOS Y REVISIÓN ---
 function calcularYMostrarResultados() {
     clearInterval(timerInterval);
-    
     let scoreFinal = 0;
     let maxPuntajePosible = 0;
     let erroresAnalisis = {};
@@ -134,11 +154,9 @@ function calcularYMostrarResultados() {
         const puntos = q.esCritica ? 2 : 1;
         maxPuntajePosible += puntos;
 
-        // Cálculos
         if (isCorrect) scoreFinal += puntos;
         else erroresAnalisis[q.categoria] = (erroresAnalisis[q.categoria] || 0) + 1;
 
-        // Render visual interactivo
         let reviewHTML = `
             <div class="review-item">
                 <p>${idx + 1}. ${q.pregunta} ${q.esCritica ? '⭐ (Doble)' : ''}</p>
@@ -147,11 +165,8 @@ function calcularYMostrarResultados() {
 
         q.opciones.forEach((opt, optIdx) => {
             let cssClass = '';
-            if (optIdx === q.respuestaCorrecta) {
-                cssClass = 'correct-answer'; // Verde para la correcta siempre
-            } else if (optIdx === respuestaUsuario && !isCorrect) {
-                cssClass = 'wrong-answer'; // Rojo para el error del usuario
-            }
+            if (optIdx === q.respuestaCorrecta) cssClass = 'correct-answer';
+            else if (optIdx === respuestaUsuario && !isCorrect) cssClass = 'wrong-answer';
             reviewHTML += `<li class="${cssClass}">${String.fromCharCode(65 + optIdx)}) ${opt}</li>`;
         });
 
@@ -165,7 +180,6 @@ function calcularYMostrarResultados() {
         reviewContainer.innerHTML += reviewHTML;
     });
     
-    // El mínimo de aprobación oficial (33 para B/C, o 10 para D)
     const isApproved = scoreFinal >= CONFIG.aprobar;
     saveToHistory(scoreFinal, isApproved, erroresAnalisis, maxPuntajePosible);
     
@@ -192,6 +206,7 @@ function calcularYMostrarResultados() {
     }
 }
 
+// --- GESTIÓN DE HISTORIAL ---
 function saveToHistory(score, isApproved, errores, maxScore) {
     let history = JSON.parse(localStorage.getItem('testpractic_history')) || [];
     const newRecord = { fecha: new Date().toLocaleString('es-CL'), puntaje: score, maximo: maxScore, estado: isApproved, areasMejora: Object.keys(errores) };
@@ -219,35 +234,67 @@ function loadHistory() {
     });
 }
 
-function startTimer() {
-    const timerEl = document.getElementById('timer');
-    timerInterval = setInterval(() => {
-        const min = Math.floor(timeLeft / 60);
-        const sec = timeLeft % 60;
-        timerEl.innerText = `${min}:${sec < 10 ? '0' : ''}${sec}`;
-        if (timeLeft <= 300) timerEl.style.color = "#fca5a5"; 
-        if (timeLeft <= 0) calcularYMostrarResultados();
-        timeLeft--;
-    }, 1000);
-}
+// ==========================================
+// LÓGICA DE TEMARIOS PROFESIONALES
+// ==========================================
 
-function updateProgress() { document.getElementById('progress-bar').style.width = ((currentIdx + 1) / questions.length * 100) + "%"; }
+const contenidoTemarios = {
+    B: {
+        titulo: "🚗 Manual Pro: Clase B (Automóviles)",
+        cuerpo: `
+            <div class="alert-info"><strong>Dato Crítico:</strong> El 90% de los siniestros son evitables y ocurren por error humano.</div>
+            <h6 class="fw-bold">1. Física del Vehículo:</h6>
+            <ul>
+                <li><b>Distancia de Detención:</b> Reacción + Frenado. Al duplicar la velocidad, la distancia de frenado aumenta 4 veces ($v^2$).</li>
+                <li><b>Efecto Túnel:</b> A 130 km/h el campo visual se reduce a 30°.</li>
+            </ul>
+            <h6 class="fw-bold">2. Normativa y Leyes:</h6>
+            <ul>
+                <li><b>Ley Emilia:</b> Cárcel efectiva mínima de 1 año por ebriedad con resultado de muerte o lesiones graves.</li>
+                <li><b>Ley No Chat:</b> Prohibido manipular el celular incluso en semáforos o tacos.</li>
+            </ul>
+        `
+    },
+    C: {
+        titulo: "🏍️ Manual Pro: Clase C (Motocicletas)",
+        cuerpo: `
+            <div class="alert-danger"><strong>Frenada Crítica:</strong> El 70% del frenado debe ser delantero y el 30% trasero.</div>
+            <h6 class="fw-bold">1. Dinámica de Conducción:</h6>
+            <ul>
+                <li><b>Contramanillar:</b> Sobre 35 km/h, empujar el manillar hacia el lado que quieres doblar.</li>
+                <li><b>Fijación del objetivo:</b> La moto siempre irá hacia donde mires. Mira la salida de la curva.</li>
+            </ul>
+            <h6 class="fw-bold">2. Seguridad Pasiva:</h6>
+            <p>El casco debe arrastrar la piel de las mejillas al ponérselo. Si te queda suelto, no absorberá el impacto correctamente.</p>
+        `
+    },
+    D: {
+        titulo: "🚜 Manual Pro: Clase D (Maquinaria Pesada)",
+        cuerpo: `
+            <div class="alert-warning"><strong>Estabilidad:</strong> La carga siempre debe viajar a 15-25 cm del suelo para mantener el centro de gravedad bajo.</div>
+            <h6 class="fw-bold">1. Estructuras de Protección:</h6>
+            <ul>
+                <li><b>ROPS:</b> Protección contra vuelcos.</li>
+                <li><b>FOPS:</b> Protección contra caída de objetos.</li>
+            </ul>
+            <h6 class="fw-bold">2. Operación Segura:</h6>
+            <p>En pendientes, con carga se sube de frente y se baja en reversa. Sin carga, se baja de frente para asegurar la tracción.</p>
+        `
+    }
+};
 
-function mostrarTeoria(clase) {
-    const contenedor = document.getElementById('teoria-content');
-    const titulo = document.getElementById('teoria-titulo');
-    const texto = document.getElementById('teoria-texto');
-    
-    contenedor.classList.remove('hidden');
-    
-    if(clase === 'B') {
-        titulo.innerText = "🚗 Resumen Teórico: Clase B";
-        texto.innerHTML = "<strong>Física y Velocidad:</strong> La energía cinética aumenta al cuadrado de la velocidad (doble velocidad = cuadruplica impacto). Distancia de reacción se calcula multiplicando por 3 el primer dígito de la velocidad.<br><br><strong>Normas Claves:</strong> Ley Tolerancia Cero pena desde 0.3g/l. Ley Emilia sanciona desde 0.8g/l (Ebriedad) con cárcel efectiva. Distancia a ciclistas: 1.5 metros obligatorios. Luz alta nocturna debe bajarse a 200m de otro vehículo.";
-    } else if(clase === 'C') {
-        titulo.innerText = "🏍️ Resumen Teórico: Clase C";
-        texto.innerHTML = "<strong>Física 2 Ruedas:</strong> Frenada de emergencia exige 70% freno delantero y 30% trasero por transferencia de peso. En curvas veloces se usa 'Contramanillar' (empujar manillar al lado del viraje).<br><br><strong>Convivencia:</strong> Interfiltrado solo permitido con vehículos detenidos (roja o taco) para llegar a la 'Motobox'. Casco integral debe arrastrar la piel de las mejillas, si desliza no sirve.";
-    } else if(clase === 'D') {
-        titulo.innerText = "🚜 Resumen Teórico: Clase D";
-        texto.innerHTML = "<strong>Estabilidad Maquinaria:</strong> En grúa horquilla la carga viaja a 15-25cm del suelo y mástil hacia atrás. En pendientes: subir de frente y bajar en reversa para no volcar carga.<br><br><strong>Señalética:</strong> Octágono (Pare) permite reconocimiento ciego en mal clima. Semáforo amarillo es prevención (tiempo matemático para frenar antes de la intersección), no permiso de acelerar.";
+function cambiarTemario(clase) {
+    const contenedor = document.getElementById('resumen-teorico-container');
+    if (contenedor) {
+        contenedor.classList.remove('hidden');
+        contenedor.innerHTML = `
+            <div class="animate-in">
+                <h4>${contenidoTemarios[clase].titulo}</h4>
+                <hr>
+                <div class="temario-texto">${contenidoTemarios[clase].cuerpo}</div>
+                <button class="btn-leer mt-3" style="background:var(--nav-blue)" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Volver arriba ▲</button>
+            </div>
+        `;
+        contenedor.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
