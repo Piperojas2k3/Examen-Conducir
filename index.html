@@ -3,41 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenLicencia Chile - Simulador Gratuito</title>
+    <title>OpenLicencia CL - Simulador Inteligente</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="nav-container">
-            <h1>OpenLicencia CL</h1>
-            <div id="timer-box">Tiempo: <span id="timer">45:00</span></div>
+            <div class="logo">OpenLicencia CL</div>
+            <div id="timer-box" class="hidden">Tiempo: <span id="timer">45:00</span></div>
         </div>
-        <div class="progress-container">
+        <div id="progress-container" class="hidden">
             <div id="progress-bar"></div>
         </div>
     </header>
 
     <main id="main-app">
         <section id="home-screen">
-            <h2>Selecciona tu clase de examen</h2>
-            <div class="menu-grid">
-                <button class="btn-clase" onclick="startExam('B')">Clase B (Vehículos)</button>
-                <button class="btn-clase" onclick="startExam('C')">Clase C (Motos)</button>
-                <button class="btn-clase" onclick="startExam('D')">Clase D (Maquinaria)</button>
+            <div class="intro-box">
+                <h2>Simulador de Examen Teórico CONASET</h2>
+                <p>Prepárate gratis con preguntas actualizadas y métricas de rendimiento.</p>
             </div>
+            <h3>Selecciona la licencia a practicar:</h3>
+            <div class="menu-grid">
+                <button class="btn-clase clase-b" onclick="startExam('B')">🚗 Clase B (Automóvil)</button>
+                <button class="btn-clase clase-c" onclick="startExam('C')">🏍️ Clase C (Motocicleta)</button>
+                <button class="btn-clase clase-d" onclick="startExam('D')">🚜 Clase D (Maquinaria)</button>
+            </div>
+            <div id="loading-msg" class="hidden">Cargando base de datos...</div>
         </section>
 
         <section id="quiz-screen" class="hidden">
-            <div id="question-header">
+            <div class="quiz-header">
                 <span id="category-label">Categoría</span>
                 <span id="question-counter">Pregunta 1 de 35</span>
             </div>
-            <p id="question-text"></p>
+            <div class="question-box">
+                <p id="question-text"></p>
+            </div>
             <div id="options-container"></div>
-            <button id="next-btn" disabled>Confirmar Respuesta</button>
+            <div class="quiz-footer">
+                <button id="next-btn" disabled>Confirmar Respuesta</button>
+            </div>
         </section>
 
         <section id="result-screen" class="hidden">
-            <h2 id="result-status"></h2>
-            <div class="score-box">
-                <p>Puntaje:
+            <div class="result-header">
+                <h2 id="result-status"></h2>
+                <p class="score-display">Puntaje: <strong id="user-score">0</strong> / 38</p>
+                <p id="pass-fail-msg">Para aprobar necesitas mínimo 33 puntos.</p>
+            </div>
+            
+            <div id="improvement-plan">
+                <h3>📊 Análisis de Rendimiento y Mejoras</h3>
+                <p>Basado en tus errores, te recomendamos repasar estas áreas:</p>
+                <ul id="feedback-list"></ul>
+            </div>
+            <button class="btn-restart" onclick="location.reload()">🔄 Realizar otro ensayo</button>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
