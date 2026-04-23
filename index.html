@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenLicencia CL - Simulador Inteligente</title>
+    <title>TestPractic - Plataforma de Conducción</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <header class="top-navbar">
         <div class="nav-container">
-            <div class="logo">OpenLicencia CL</div>
-            <div id="timer-box" class="hidden">Tiempo: <span id="timer">45:00</span></div>
-        </div>
-        <div id="progress-container" class="hidden">
-            <div id="progress-bar"></div>
+            <div class="logo" onclick="switchScreen('home-screen')">☑️ TestPractic</div>
+            <nav class="nav-links">
+                <button onclick="switchScreen('exams-menu-screen')">📝 Exámenes</button>
+                <button onclick="switchScreen('temarios-screen')">📚 Temarios</button>
+                <button onclick="switchScreen('history-screen'); loadHistory();">📊 Mis Resultados</button>
+            </nav>
         </div>
     </header>
 
     <main id="main-app">
-        <section id="home-screen">
-            <div class="intro-box">
-                <h2>Simulador de Examen Teórico CONASET</h2>
-                <p>Prepárate gratis con preguntas actualizadas y métricas de rendimiento.</p>
+        <section id="home-screen" class="screen active">
+            <div class="hero-banner">
+                <h1>Prepara tu licencia en Chile</h1>
+                <p>Clases B, C y D. Realiza pruebas simuladas y asegura tu éxito.</p>
+                <button class="btn-hero" onclick="switchScreen('exams-menu-screen')">IR A LOS EXÁMENES DE CONDUCIR</button>
             </div>
-            <h3>Selecciona la licencia a practicar:</h3>
+            <div class="info-section">
+                <h2>Bienvenido a TestPractic, tu plataforma de conducción online</h2>
+                <p>Ofrecemos test de conducción online y gratuitos para preparar tu examen teórico desde donde quieras. Revisa tus resultados y descubre qué áreas mejorar.</p>
+            </div>
+        </section>
+
+        <section id="exams-menu-screen" class="screen">
+            <h2>Selecciona tu clase de examen</h2>
             <div class="menu-grid">
                 <button class="btn-clase clase-b" onclick="startExam('B')">🚗 Clase B (Automóvil)</button>
                 <button class="btn-clase clase-c" onclick="startExam('C')">🏍️ Clase C (Motocicleta)</button>
@@ -32,7 +41,11 @@
             <div id="loading-msg" class="hidden">Cargando base de datos...</div>
         </section>
 
-        <section id="quiz-screen" class="hidden">
+        <section id="quiz-screen" class="screen">
+            <div class="quiz-top-bar">
+                <div id="timer-box">⏱️ <span id="timer">45:00</span></div>
+                <div id="progress-container"><div id="progress-bar"></div></div>
+            </div>
             <div class="quiz-header">
                 <span id="category-label">Categoría</span>
                 <span id="question-counter">Pregunta 1 de 35</span>
@@ -42,23 +55,42 @@
             </div>
             <div id="options-container"></div>
             <div class="quiz-footer">
-                <button id="next-btn" disabled>Confirmar Respuesta</button>
+                <button id="prev-btn" class="hidden">⬅️ Volver</button>
+                <button id="next-btn" disabled>Siguiente ➡️</button>
             </div>
         </section>
 
-        <section id="result-screen" class="hidden">
+        <section id="result-screen" class="screen">
             <div class="result-header">
                 <h2 id="result-status"></h2>
                 <p class="score-display">Puntaje: <strong id="user-score">0</strong> / 38</p>
-                <p id="pass-fail-msg">Para aprobar necesitas mínimo 33 puntos.</p>
             </div>
-            
             <div id="improvement-plan">
-                <h3>📊 Análisis de Rendimiento y Mejoras</h3>
-                <p>Basado en tus errores, te recomendamos repasar estas áreas:</p>
+                <h3>📊 Tu Feedback Inmediato</h3>
                 <ul id="feedback-list"></ul>
             </div>
-            <button class="btn-restart" onclick="location.reload()">🔄 Realizar otro ensayo</button>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="switchScreen('history-screen'); loadHistory();">Ver mi Historial Completo</button>
+                <button class="btn-secondary" onclick="switchScreen('home-screen')">Volver al Inicio</button>
+            </div>
+        </section>
+
+        <section id="history-screen" class="screen">
+            <h2>📊 Mi Historial de Exámenes</h2>
+            <p>Aquí queda el registro de tus pruebas para que veas tu progreso.</p>
+            <div id="history-container">
+                </div>
+        </section>
+
+        <section id="temarios-screen" class="screen">
+            <h2>📚 Temarios de Estudio</h2>
+            <div class="temarios-grid">
+                <div class="card">
+                    <h3>Libro del Nuevo Conductor (Clase B)</h3>
+                    <p>Resumen oficial de CONASET.</p>
+                    <button class="btn-secondary" disabled>Próximamente</button>
+                </div>
+            </div>
         </section>
     </main>
 
