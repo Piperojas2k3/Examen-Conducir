@@ -93,3 +93,59 @@ body { background-color: var(--bg-light); color: var(--text-dark); line-height: 
     #prev-btn, #next-btn { width: 100%; }
     .nav-links button { padding: 5px 10px; font-size: 0.85rem; }
 }
+/* DISEÑO DE BOTONES DE EXAMEN (MEJORADO) */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.btn-clase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    color: white !important;
+    text-align: center;
+    min-height: 180px;
+}
+
+.btn-clase .icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.btn-clase .text {
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.btn-clase .text small {
+    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Colores con Gradientes para que se vean PRO */
+.clase-b { background: linear-gradient(135deg, #2563eb, #1e40af) !important; }
+.clase-c { background: linear-gradient(135deg, #0891b2, #0e7490) !important; }
+.clase-d { background: linear-gradient(135deg, #d97706, #b45309) !important; }
+
+/* Efecto al pasar el mouse */
+.btn-clase:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    filter: brightness(1.1);
+}
+
+.btn-clase:active {
+    transform: scale(0.95);
+}
