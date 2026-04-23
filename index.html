@@ -31,13 +31,26 @@
             </div>
         </section>
 
-        <section id="exams-menu-screen" class="screen">
-            <h2 style="margin-bottom: 20px;">Selecciona tu clase de examen</h2>
-            <div class="menu-grid">
-                <button class="btn-clase clase-b" onclick="startExam('B')">🚗 Clase B (Automóvil)</button>
-                <button class="btn-clase clase-c" onclick="startExam('C')">🏍️ Clase C (Motocicleta)</button>
-                <button class="btn-clase clase-d" onclick="startExam('D')">🚜 Clase D (Maquinaria)</button>
-            </div>
+       <section id="exams-menu-screen" class="screen">
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary-blue);">Selecciona tu clase de examen</h2>
+    <div class="menu-grid">
+        <button class="btn-clase clase-b" onclick="startExam('B')">
+            <span class="icon">🚗</span>
+            <span class="text">Clase B<br><small>(Automóvil)</small></span>
+        </button>
+        <button class="btn-clase clase-c" onclick="startExam('C')">
+            <span class="icon">🏍️</span>
+            <span class="text">Clase C<br><small>(Motocicleta)</small></span>
+        </button>
+        <button class="btn-clase clase-d" onclick="startExam('D')">
+            <span class="icon">🚜</span>
+            <span class="text">Clase D<br><small>(Maquinaria)</small></span>
+        </button>
+    </div>
+    <div id="loading-msg" class="hidden" style="margin-top: 20px; text-align: center; font-weight: bold; color: var(--nav-blue);">
+        ⏳ Preparando banco de preguntas...
+    </div>
+</section>
             <div id="loading-msg" class="hidden" style="margin-top: 15px; text-align: center;">Preparando banco de preguntas...</div>
         </section> 
         <section id="quiz-screen" class="screen">
