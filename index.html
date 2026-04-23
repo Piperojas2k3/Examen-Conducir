@@ -31,23 +31,32 @@
             </div>
         </section>
 
-       <section id="exams-menu-screen" class="screen">
-    <h2 style="text-align: center; margin-bottom: 30px; color: var(--primary-blue);">Selecciona tu clase de examen</h2>
-    <div class="menu-grid">
-        <button class="btn-clase clase-b" onclick="startExam('B')">
-            <span class="icon">🚗</span>
-            <span class="text">Clase B<br><small>(Automóvil)</small></span>
-        </button>
-        <button class="btn-clase clase-c" onclick="startExam('C')">
-            <span class="icon">🏍️</span>
-            <span class="text">Clase C<br><small>(Motocicleta)</small></span>
-        </button>
-        <button class="btn-clase clase-d" onclick="startExam('D')">
-            <span class="icon">🚜</span>
-            <span class="text">Clase D<br><small>(Maquinaria)</small></span>
-        </button>
+      <section id="exams-menu-screen" class="screen">
+    <h2 class="text-center mb-4 text-primary fw-bold">Selecciona tu clase de examen</h2>
+    
+    <div class="menu-grid selection-grid">
+        
+        <div class="card card-seleccion clase-b-hover" onclick="startExam('B')">
+            <span class="icon-grande">🚗</span>
+            <h3>Clase B</h3>
+            <p>Automóvil</p>
+        </div>
+
+        <div class="card card-seleccion clase-c-hover" onclick="startExam('C')">
+            <span class="icon-grande">🏍️</span>
+            <h3>Clase C</h3>
+            <p>Motocicleta</p>
+        </div>
+
+        <div class="card card-seleccion clase-d-hover" onclick="startExam('D')">
+            <span class="icon-grande">🚜</span>
+            <h3>Clase D</h3>
+            <p>Maquinaria</p>
+        </div>
+
     </div>
-    <div id="loading-msg" class="hidden" style="margin-top: 20px; text-align: center; font-weight: bold; color: var(--nav-blue);">
+    
+    <div id="loading-msg" class="hidden text-center mt-3 text-muted">
         ⏳ Preparando banco de preguntas...
     </div>
 </section>
