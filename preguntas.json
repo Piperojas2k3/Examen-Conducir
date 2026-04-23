@@ -1,17 +1,110 @@
 [
   {
-    "id": 1, "clase": "B", "categoria": "Seguridad Vial",
-    "pregunta": "¿Qué probabilidad de supervivencia tiene un peatón a 30 km/h?",
-    "opciones": ["10%", "50%", "90%"], "respuestaCorrecta": 2, "esCritica": true
+    "id": 1,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "¿Cuál es la tasa de alcohol en la sangre que define legalmente la 'conducción bajo la influencia del alcohol' en Chile?",
+    "opciones": ["0,1 a 0,5 gramos por mil.", "0,3 a 0,8 gramos por mil.", "Más de 0,8 gramos por mil."],
+    "respuestaCorrecta": 1,
+    "esCritica": true
   },
   {
-    "id": 2, "clase": "C", "categoria": "Seguridad Motociclista",
-    "pregunta": "¿Cuál es el elemento de seguridad más importante para un motociclista?",
-    "opciones": ["Guantes", "Casco certificado", "Chaqueta de cuero"], "respuestaCorrecta": 1, "esCritica": true
+    "id": 2,
+    "clase": "B",
+    "categoria": "Física de la Conducción",
+    "pregunta": "Si duplicas la velocidad de tu vehículo, ¿cuántas veces aumenta la energía del movimiento (fuerza del impacto)?",
+    "opciones": ["Se duplica (2 veces).", "Se triplica (3 veces).", "Se cuadruplica (4 veces)."],
+    "respuestaCorrecta": 2,
+    "esCritica": true
   },
   {
-    "id": 3, "clase": "D", "categoria": "Maquinaria",
-    "pregunta": "¿Qué documento es obligatorio para operar una grúa horquilla en la vía pública?",
-    "opciones": ["Permiso municipal", "Licencia Clase D", "Licencia Clase B"], "respuestaCorrecta": 1, "esCritica": false
+    "id": 3,
+    "clase": "B",
+    "categoria": "Seguridad Vial",
+    "pregunta": "¿Cuál es la sanción por no utilizar un sistema de retención infantil (silla) para niños menores de 9 años?",
+    "opciones": ["Infracción grave y multa.", "Infracción gravísima, multa y suspensión de licencia.", "Solo una amonestación verbal."],
+    "respuestaCorrecta": 1,
+    "esCritica": true
+  },
+  {
+    "id": 4,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "En un cruce no regulado por señales ni semáforos, ¿quién tiene el Derecho Preferente de Paso?",
+    "opciones": ["El vehículo que circula por la vía principal.", "El vehículo que aparece por la derecha del otro.", "El vehículo que llega primero al cruce."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 5,
+    "clase": "B",
+    "categoria": "Mecánica Básica",
+    "pregunta": "Si el pedal de freno se siente 'elástico' o llega hasta el fondo, ¿cuál es la causa más probable?",
+    "opciones": ["Los neumáticos están gastados.", "Hay aire en el sistema de frenos o falta líquido.", "Las pastillas de freno están nuevas."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 6,
+    "clase": "B",
+    "categoria": "Normas de Circulación",
+    "pregunta": "¿Cuál es la velocidad máxima permitida en zonas de escuela en horarios de entrada y salida?",
+    "opciones": ["20 km/h.", "30 km/h.", "50 km/h."],
+    "respuestaCorrecta": 1,
+    "esCritica": true
+  },
+  {
+    "id": 7,
+    "clase": "B",
+    "categoria": "Situaciones de Emergencia",
+    "pregunta": "Si el motor de tu vehículo comienza a incendiarse, ¿qué es lo primero que debes hacer?",
+    "opciones": ["Echarle agua directamente al motor para enfriarlo.", "Detenerse, apagar el motor, evacuar y usar el extintor.", "Abrir el capó por completo para que se ventile."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 8,
+    "clase": "B",
+    "categoria": "Seguridad Pasiva",
+    "pregunta": "¿Cuál es la función principal del Airbag?",
+    "opciones": ["Reemplazar el uso del cinturón de seguridad.", "Complementar al cinturón para evitar impactos contra el interior.", "Evitar que el auto se vuelque."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 9,
+    "clase": "C",
+    "categoria": "Conducción Motocicletas",
+    "pregunta": "Al conducir una motocicleta, ¿qué freno tiene mayor poder de detención?",
+    "opciones": ["El freno trasero.", "El freno delantero.", "Ambos frenan exactamente igual."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 10,
+    "clase": "C",
+    "categoria": "Conducción Motocicletas",
+    "pregunta": "Para mejorar la visibilidad de la motocicleta de día, ¿qué acción es obligatoria?",
+    "opciones": ["Usar chaleco reflectante.", "Llevar luces bajas encendidas en todo momento.", "Tocar la bocina en cada cruce."],
+    "respuestaCorrecta": 1,
+    "esCritica": true
+  },
+  {
+    "id": 11,
+    "clase": "D",
+    "categoria": "Maquinaria",
+    "pregunta": "Al circular por una vía pública con un tractor agrícola, ¿por dónde debe transitar?",
+    "opciones": ["Por el centro de la calzada.", "Por la berma, siempre que sea posible y seguro.", "Exclusivamente por caminos de tierra."],
+    "respuestaCorrecta": 1,
+    "esCritica": false
+  },
+  {
+    "id": 12,
+    "clase": "D",
+    "categoria": "Maquinaria",
+    "pregunta": "¿Qué precaución adicional debe tener al operar una retroexcavadora en una zona urbana?",
+    "opciones": ["Señalizar con balizas destellantes y evitar movimientos bruscos de la pala.", "Transitar a más de 50 km/h para no generar tacos.", "Desconectar los frenos hidráulicos para ahorrar energía."],
+    "respuestaCorrecta": 0,
+    "esCritica": true
   }
 ]
