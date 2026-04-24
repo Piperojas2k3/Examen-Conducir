@@ -206,31 +206,124 @@ function calcularYMostrarResultados() {
     }
 }
 
-// --- GESTIÓN DE HISTORIAL ---
+// =========================================================
+// GESTIÓN DE HISTORIAL PRO (TARJETAS + FEEDBACK DETALLADO)
+// =========================================================
+
+// --- 1. GUARDAR EL EXAMEN COMPLETO (Incluye preguntas y tus respuestas) ---
 function saveToHistory(score, isApproved, errores, maxScore) {
     let history = JSON.parse(localStorage.getItem('testpractic_history')) || [];
-    const newRecord = { fecha: new Date().toLocaleString('es-CL'), puntaje: score, maximo: maxScore, estado: isApproved, areasMejora: Object.keys(errores) };
+    
+    const newRecord = { 
+        fecha: new Date().toLocaleString('es-CL'), 
+        puntaje: score, 
+        maximo: maxScore, 
+        estado: isApproved, 
+        areasMejora: Object.keys(errores),
+        // Guardamos las preguntas y tus respuestas para revisarlas después
+        preguntasGuardadas: JSON.parse(JSON.stringify(questions)), 
+        respuestasGuardadas: [...userAnswers] 
+    };
+    
     history.unshift(newRecord); 
     localStorage.setItem('testpractic_history', JSON.stringify(history));
 }
 
+// --- 2. MOSTRAR HISTORIAL COMO TARJETAS ---
 function loadHistory() {
     const container = document.getElementById('history-container');
     let history = JSON.parse(localStorage.getItem('testpractic_history')) || [];
     container.innerHTML = '';
-    if (history.length === 0) { container.innerHTML = "<p>Aún no hay registros.</p>"; return; }
+    
+    if (history.length === 0) { 
+        container.innerHTML = `<div class="card-estudio text-center p-4"><p class="text-muted mb-0">Aún no hay registros de exámenes.</p></div>`; 
+        return; 
+    }
     
     history.forEach((item, index) => {
         const div = document.createElement('div');
-        div.className = 'history-item';
-        const badge = item.estado ? '<span class="status-badge badge-pass">Aprobado</span>' : '<span class="status-badge badge-fail">Reprobado</span>';
-        let areas = item.areasMejora.length > 0 ? item.areasMejora.join(", ") : "Perfecto";
+        div.className = 'card-estudio mb-3 d-flex justify-content-between align-items-center text-start';
+        div.style.cursor = "pointer";
+        div.onclick = () => verDetalleHistorico(index); 
+
+        const badgeClass = item.estado ? 'badge-pass' : 'badge-fail';
+        const badgeText = item.estado ? 'APROBADO' : 'REPROBADO';
+        
         div.innerHTML = `
-            <h4>Ensayo ${history.length - index} - ${item.fecha}</h4>
-            <p><strong>Resultado:</strong> ${item.puntaje}/${item.maximo} puntos ${badge}</p>
-            <p style="font-size: 0.9rem; color: #64748b;"><strong>A mejorar:</strong> ${areas}</p>
+            <div style="flex: 1;">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="status-badge ${badgeClass}">${badgeText}</span>
+                    <small style="color: #64748b">${item.fecha}</small>
+                </div>
+                <h5 class="mb-1" style="color: var(--primary-blue); font-weight: 800;">Ensayo #${history.length - index}</h5>
+                <p class="mb-0" style="font-size: 0.95rem;">Resultado: <strong>${item.puntaje}/${item.maximo} puntos</strong></p>
+            </div>
+            <div class="text-end">
+                <button class="btn-leer" style="padding: 8px 15px; font-size: 0.8rem;">Revisar Prueba 🔍</button>
+            </div>
         `;
         container.appendChild(div);
+    });
+}
+
+// --- 3. VER EL DETALLE DE UNA PRUEBA DEL PASADO ---
+function verDetalleHistorico(index) {
+    let history = JSON.parse(localStorage.getItem('testpractic_history')) || [];
+    const examen = history[index];
+
+    if (!examen.preguntasGuardadas) {
+        alert("Este registro es antiguo y no tiene el detalle guardado.");
+        return;
+    }
+
+    switchScreen('history-detail-screen');
+    const container = document.getElementById('history-review-container');
+    
+    container.innerHTML = `
+        <div class="mb-4 d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="mb-0">Revisión de Ensayo</h3>
+                <p class="text-muted mb-0">Realizado el ${examen.fecha}</p>
+            </div>
+            <button class="btn-leer" onclick="switchScreen('history-screen')" style="background: var(--nav-blue)">⬅️ Volver</button>
+        </div>
+        <div class="alert-info mb-4">
+            Puntaje final: <strong>${examen.puntaje} de ${examen.maximo} puntos</strong>.
+        </div>
+        <hr>
+    `;
+
+    examen.preguntasGuardadas.forEach((q, idx) => {
+        const resUsuario = examen.respuestasGuardadas[idx];
+        const esCorrecta = resUsuario === q.respuestaCorrecta;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'review-item';
+        itemDiv.style.borderLeft = `6px solid ${esCorrecta ? 'var(--success)' : 'var(--danger)'}`;
+
+        let opcionesHTML = q.opciones.map((opt, i) => {
+            let claseExtra = '';
+            let icono = '';
+            if (i === q.respuestaCorrecta) {
+                claseExtra = 'correct-answer';
+                if (i === resUsuario) icono = ' ✅';
+            } else if (i === resUsuario && !esCorrecta) {
+                claseExtra = 'wrong-answer';
+                icono = ' 👤 (Tu error)';
+            }
+            return `<li class="p-2 mb-1 rounded ${claseExtra}" style="border: 1px solid #eee; font-size: 0.95rem;">
+                ${String.fromCharCode(65 + i)}) ${opt}${icono}
+            </li>`;
+        }).join('');
+
+        itemDiv.innerHTML = `
+            <p class="fw-bold mb-2">${idx + 1}. ${q.pregunta}</p>
+            <ul class="list-unstyled mb-3">${opcionesHTML}</ul>
+            <div class="explanation-box">
+                <small><strong>Explicación:</strong> ${q.explicacion}</small>
+            </div>
+        `;
+        container.appendChild(itemDiv);
     });
 }
 
