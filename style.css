@@ -149,3 +149,85 @@ body { background-color: var(--bg-light); color: var(--text-dark); line-height: 
 .btn-clase:active {
     transform: scale(0.95);
 }
+/* ==========================================
+   NUEVO DISEÑO DE SELECCIÓN DE EXAMEN (cards)
+   ========================================== */
+
+/* Grid ajustado para las tarjetas de selección */
+.selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* La tarjeta base (reutilizando estilos de .card si existen, sino defínelos aquí) */
+.card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave como en tu foto */
+    border: 1px solid transparent; /* Para evitar saltos en hover */
+    transition: all 0.3s ease; /* Animación suave */
+}
+
+/* Estilos específicos para la tarjeta de SELECCIÓN */
+.card-seleccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer; /* Cambia el cursor a "mano" para indicar que es clickeable */
+    min-height: 260px; /* Un poco más altas para que respiren */
+    position: relative;
+}
+
+/* Emojis Grandes */
+.card-seleccion .icon-grande {
+    font-size: 4.5rem; /* ¡Grandes! */
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Títulos Bold y Claros */
+.card-seleccion h3 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin-bottom: 5px;
+}
+
+/* Texto descriptivo */
+.card-seleccion p {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* --- EFECTOS HOVER (Cuando pasas el mouse) --- */
+.card-seleccion:hover {
+    transform: translateY(-8px); /* La tarjeta "flota" hacia arriba */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1); /* Sombra más fuerte al flotar */
+}
+
+/* Un borde de color sutil para diferenciar las clases al pasar el mouse */
+.clase-b-hover:hover { border-color: var(--nav-blue); }
+.clase-c-hover:hover { border-color: #0891b2; } /* Color Cyan */
+.clase-d-hover:hover { border-color: #d97706; } /* Color Naranjo/Oro */
+
+/* Indicador opcional de "Comenzar" en hover (UX mejorada) */
+.card-seleccion::after {
+    content: 'Click para comenzar Test ➡️';
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--nav-blue);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-seleccion:hover::after {
+    opacity: 1;
+}
