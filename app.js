@@ -107,14 +107,14 @@ function calcularYMostrarResultados() {
     let maxPuntajePosible = 0;
     let erroresAnalisis = {};
     
-    // 1. CÁLCULO DE PUNTAJE CORREGIDO (Solo 1 pto para Clase D)
+    // 1. CÁLCULO DE PUNTAJE SEGÚN REGLAS DE CLASE
     questions.forEach((q, idx) => {
         const respuestaUsuario = userAnswers[idx];
         const isCorrect = respuestaUsuario === q.respuestaCorrecta;
         
-        // REGLA: Si es Clase D, siempre vale 1. Si no, las críticas valen 2.
+        // Lógica de puntos: Solo la Clase B tiene preguntas de doble puntaje (críticas)
         let puntosEstaPregunta = 1;
-        if (CONFIG.total === 35 && q.esCritica) { // Si el total es 35, es Clase B o C
+        if (claseActual === 'B' && q.esCritica) {
             puntosEstaPregunta = 2;
         }
         
@@ -123,35 +123,36 @@ function calcularYMostrarResultados() {
         else erroresAnalisis[q.categoria] = (erroresAnalisis[q.categoria] || 0) + 1;
     });
     
-    // Guardar en el historial
+    // Guardar en historial (con los puntos reales)
     const isApproved = scoreFinal >= CONFIG.aprobar;
     saveToHistory(scoreFinal, isApproved, erroresAnalisis, maxPuntajePosible);
     
-    // 2. MOSTRAR PANTALLA DE RESULTADOS (RESUMEN)
+    // 2. MOSTRAR RESULTADOS
     switchScreen('result-screen');
     
     const statusEl = document.getElementById('result-status');
     statusEl.innerText = isApproved ? "¡APROBADO! ✅" : "REPROBADO ❌";
-    statusEl.className = isApproved ? "text-success fw-bold" : "text-danger fw-bold";
+    statusEl.className = isApproved ? "text-success fw-bold display-4" : "text-danger fw-bold display-4";
     
     document.getElementById('user-score').innerText = scoreFinal;
     document.getElementById('max-score-display').innerText = maxPuntajePosible;
-    document.getElementById('pass-fail-msg').innerText = `Se requieren ${CONFIG.aprobar} puntos para aprobar.`;
+    document.getElementById('pass-fail-msg').innerText = `Mínimo para aprobar: ${CONFIG.aprobar} puntos.`;
     
-    // Limpiar y llenar el feedback estético
+    // Feedback estético en tarjetas
     const feedbackList = document.getElementById('feedback-list');
     feedbackList.innerHTML = '';
     
     if (Object.keys(erroresAnalisis).length === 0) {
-        feedbackList.innerHTML = `<div class="alert-info" style="border-left-color: var(--success)">🌟 ¡Excelente trabajo! No tuviste errores.</div>`;
+        feedbackList.innerHTML = `<div class="alert-info" style="border-left-color: var(--success)">🌟 ¡Excelente! No tuviste errores en este ensayo.</div>`;
     } else {
         Object.keys(erroresAnalisis).forEach(cat => {
             const div = document.createElement('div');
             div.className = "alert-info mb-2"; 
-            div.innerHTML = `<strong>${cat}:</strong> ${RECOMENDACIONES[cat] || "Repasar este capítulo del manual."}`;
+            div.innerHTML = `<strong>${cat}:</strong> ${RECOMENDACIONES[cat] || "Repasar este capítulo del manual de CONASET."}`;
             feedbackList.appendChild(div);
         });
     }
+}
 }// =========================================================
 // GESTIÓN DE HISTORIAL PRO (TARJETAS + FEEDBACK DETALLADO)
 // =========================================================
