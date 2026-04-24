@@ -82,31 +82,33 @@
         </section>
 
         <section id="result-screen" class="screen">
-    <div class="score-card text-center">
-        <h2 id="result-status"></h2>
-        
-        <div class="my-4">
-            <span id="user-score" style="font-size: 4rem; font-weight: 900;">0</span>
-            <span class="text-muted" style="font-size: 1.5rem;">/ <span id="max-score-display">0</span></span>
-            <p id="pass-fail-msg" class="text-muted"></p>
-        </div>
+            <div class="score-card text-center">
+                <h2 id="result-status"></h2>
+                
+                <div class="my-4">
+                    <span id="user-score" style="font-size: 4rem; font-weight: 900;">0</span>
+                    <span class="text-muted" style="font-size: 1.5rem;">/ <span id="max-score-display">0</span></span>
+                    <p id="pass-fail-msg" class="text-muted"></p>
+                </div>
 
-        <div class="card p-3 shadow-sm mb-4 text-start" style="background: #f8fafc; border-left: 5px solid var(--nav-blue);">
-            <h5 class="fw-bold"><i class="icon">📊</i> Áreas a reforzar:</h5>
-            <div id="feedback-list" class="mt-2"></div>
-        </div>
+                <div class="card p-3 shadow-sm mb-4 text-start" style="background: #f8fafc; border-left: 5px solid var(--nav-blue);">
+                    <h5 class="fw-bold">📊 Áreas a reforzar:</h5>
+                    <div id="feedback-list" class="mt-2">
+                        </div>
+                </div>
 
-        <div class="d-grid gap-2">
-            <button class="btn-hero" style="background: var(--nav-blue); width: 100%;" onclick="mostrarRevisionInmediata()">
-                🔍 VER REVISIÓN DETALLADA
-            </button>
-            <div class="d-flex gap-2 mt-2">
-                <button class="btn-secondary" style="flex:1" onclick="switchScreen('history-screen'); loadHistory();">Mi Historial</button>
-                <button class="btn-secondary" style="flex:1; background: var(--success);" onclick="switchScreen('exams-menu-screen')">Nuevo Ensayo</button>
+                <div class="d-grid gap-2">
+                    <button class="btn-hero" onclick="mostrarRevisionInmediata()" style="background: var(--nav-blue); width: 100%;">
+                        🔍 REVISAR MIS RESPUESTAS
+                    </button>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button class="btn-leer" style="flex: 1; background: #64748b;" onclick="switchScreen('history-screen'); loadHistory();">Historial</button>
+                        <button class="btn-leer" style="flex: 1; background: var(--success);" onclick="switchScreen('exams-menu-screen')">Nuevo Ensayo</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
         <section id="history-screen" class="screen">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 style="margin-bottom: 0;">📊 Mi Historial de Exámenes</h2>
