@@ -142,71 +142,57 @@ function updateProgress() { document.getElementById('progress-bar').style.width 
 // --- RESULTADOS Y REVISIÓN ---
 function calcularYMostrarResultados() {
     clearInterval(timerInterval);
+    
     let scoreFinal = 0;
     let maxPuntajePosible = 0;
     let erroresAnalisis = {};
-    const reviewContainer = document.getElementById('review-container');
-    reviewContainer.innerHTML = ''; 
-
+    
+    // 1. CÁLCULO DE PUNTAJE CORREGIDO (Solo 1 pto para Clase D)
     questions.forEach((q, idx) => {
         const respuestaUsuario = userAnswers[idx];
         const isCorrect = respuestaUsuario === q.respuestaCorrecta;
-        const puntos = q.esCritica ? 2 : 1;
-        maxPuntajePosible += puntos;
-
-        if (isCorrect) scoreFinal += puntos;
+        
+        // REGLA: Si es Clase D, siempre vale 1. Si no, las críticas valen 2.
+        let puntosEstaPregunta = 1;
+        if (CONFIG.total === 35 && q.esCritica) { // Si el total es 35, es Clase B o C
+            puntosEstaPregunta = 2;
+        }
+        
+        maxPuntajePosible += puntosEstaPregunta;
+        if (isCorrect) scoreFinal += puntosEstaPregunta;
         else erroresAnalisis[q.categoria] = (erroresAnalisis[q.categoria] || 0) + 1;
-
-        let reviewHTML = `
-            <div class="review-item">
-                <p>${idx + 1}. ${q.pregunta} ${q.esCritica ? '⭐ (Doble)' : ''}</p>
-                <ul>
-        `;
-
-        q.opciones.forEach((opt, optIdx) => {
-            let cssClass = '';
-            if (optIdx === q.respuestaCorrecta) cssClass = 'correct-answer';
-            else if (optIdx === respuestaUsuario && !isCorrect) cssClass = 'wrong-answer';
-            reviewHTML += `<li class="${cssClass}">${String.fromCharCode(65 + optIdx)}) ${opt}</li>`;
-        });
-
-        reviewHTML += `
-                </ul>
-                <div class="explanation-box">
-                    <strong>Fundamento:</strong> ${q.explicacion}
-                </div>
-            </div>
-        `;
-        reviewContainer.innerHTML += reviewHTML;
     });
     
+    // Guardar en el historial
     const isApproved = scoreFinal >= CONFIG.aprobar;
     saveToHistory(scoreFinal, isApproved, erroresAnalisis, maxPuntajePosible);
     
+    // 2. MOSTRAR PANTALLA DE RESULTADOS (RESUMEN)
     switchScreen('result-screen');
+    
     const statusEl = document.getElementById('result-status');
+    statusEl.innerText = isApproved ? "¡APROBADO! ✅" : "REPROBADO ❌";
+    statusEl.className = isApproved ? "text-success fw-bold" : "text-danger fw-bold";
+    
     document.getElementById('user-score').innerText = scoreFinal;
     document.getElementById('max-score-display').innerText = maxPuntajePosible;
     document.getElementById('pass-fail-msg').innerText = `Se requieren ${CONFIG.aprobar} puntos para aprobar.`;
     
-    statusEl.innerText = isApproved ? "¡APROBADO! ✅" : "REPROBADO ❌";
-    statusEl.style.color = isApproved ? "var(--success)" : "var(--danger)";
-    
+    // Limpiar y llenar el feedback estético
     const feedbackList = document.getElementById('feedback-list');
     feedbackList.innerHTML = '';
     
     if (Object.keys(erroresAnalisis).length === 0) {
-        feedbackList.innerHTML = "<li>¡Examen Perfecto! Revisa el fundamento de tus aciertos abajo.</li>";
+        feedbackList.innerHTML = `<div class="alert-info" style="border-left-color: var(--success)">🌟 ¡Excelente trabajo! No tuviste errores.</div>`;
     } else {
         Object.keys(erroresAnalisis).forEach(cat => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${cat}:</strong> ${RECOMENDACIONES[cat] || "Repasar manual."}`;
-            feedbackList.appendChild(li);
+            const div = document.createElement('div');
+            div.className = "alert-info mb-2"; 
+            div.innerHTML = `<strong>${cat}:</strong> ${RECOMENDACIONES[cat] || "Repasar este capítulo del manual."}`;
+            feedbackList.appendChild(div);
         });
     }
-}
-
-// =========================================================
+}// =========================================================
 // GESTIÓN DE HISTORIAL PRO (TARJETAS + FEEDBACK DETALLADO)
 // =========================================================
 
