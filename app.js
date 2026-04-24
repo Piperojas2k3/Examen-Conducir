@@ -8,7 +8,7 @@ let userAnswers = [];
 let currentIdx = 0;
 let timeLeft = 0;
 let timerInterval;
-let claseActual = ''; // Variable para controlar el puntaje por clase
+let claseActual = ''; 
 
 const RECOMENDACIONES = {
     "Física de la Conducción": "Repasa el cálculo de Distancia de Reacción (x3) y Frenado. La energía cinética aumenta al cuadrado de la velocidad.",
@@ -37,7 +37,6 @@ async function startExam(clase) {
     const loadingMsg = document.getElementById('loading-msg');
     loadingMsg.classList.remove('hidden');
     
-    // Configuración según Clase (Reglas CONASET)
     if (clase === 'B') {
         CONFIG.total = 35; CONFIG.aprobar = 33; CONFIG.tiempo = 45 * 60; CONFIG.maxScore = 38; 
     } else if (clase === 'C') {
@@ -49,7 +48,6 @@ async function startExam(clase) {
     try {
         const response = await fetch('preguntas.json');
         if (!response.ok) throw new Error("Error cargando base de datos.");
-        
         const data = await response.json();
         
         questions = data.filter(q => q.clase === clase || q.clase === "Todas")
@@ -65,22 +63,31 @@ async function startExam(clase) {
         userAnswers = new Array(questions.length).fill(null);
         currentIdx = 0;
         timeLeft = CONFIG.tiempo;
-
         loadingMsg.classList.add('hidden');
         switchScreen('quiz-screen');
         showQuestion();
         startTimer();
-
     } catch (error) {
         console.error(error);
         alert("Error al cargar las preguntas.");
     }
 }
 
-// --- MOSTRAR PREGUNTA (Faltaba en tu código) ---
+// --- MOSTRAR PREGUNTA (CON SOPORTE DE IMAGEN) ---
 function showQuestion() {
     const q = questions[currentIdx];
     const prevAnswer = userAnswers[currentIdx];
+    
+    // Lógica de Imagen dinámica
+    const imgContainer = document.getElementById('image-container');
+    const imgElement = document.getElementById('question-image');
+
+    if (q.imagen && q.imagen !== "") {
+        imgElement.src = q.imagen;
+        imgContainer.classList.remove('hidden');
+    } else {
+        imgContainer.classList.add('hidden');
+    }
     
     document.getElementById('category-label').innerText = q.categoria;
     document.getElementById('question-counter').innerText = `Pregunta ${currentIdx + 1} de ${questions.length}`;
@@ -100,11 +107,9 @@ function showQuestion() {
 
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
-
     prevBtn.classList.toggle('hidden', currentIdx === 0);
     nextBtn.innerText = currentIdx === questions.length - 1 ? "Finalizar Examen 🏁" : "Siguiente ➡️";
     nextBtn.disabled = prevAnswer === null;
-    
     updateProgress();
 }
 
@@ -145,10 +150,8 @@ function calcularYMostrarResultados() {
     questions.forEach((q, idx) => {
         const respuestaUsuario = userAnswers[idx];
         const isCorrect = respuestaUsuario === q.respuestaCorrecta;
-        
         let puntosEstaPregunta = 1;
         if (claseActual === 'B' && q.esCritica) puntosEstaPregunta = 2;
-        
         maxPuntajePosible += puntosEstaPregunta;
         if (isCorrect) scoreFinal += puntosEstaPregunta;
         else erroresAnalisis[q.categoria] = (erroresAnalisis[q.categoria] || 0) + 1;
@@ -156,19 +159,15 @@ function calcularYMostrarResultados() {
     
     const isApproved = scoreFinal >= CONFIG.aprobar;
     saveToHistory(scoreFinal, isApproved, erroresAnalisis, maxPuntajePosible);
-    
     switchScreen('result-screen');
     const statusEl = document.getElementById('result-status');
     statusEl.innerText = isApproved ? "¡APROBADO! ✅" : "REPROBADO ❌";
     statusEl.className = isApproved ? "text-success fw-bold display-4" : "text-danger fw-bold display-4";
-    
     document.getElementById('user-score').innerText = scoreFinal;
     document.getElementById('max-score-display').innerText = maxPuntajePosible;
     document.getElementById('pass-fail-msg').innerText = `Mínimo para aprobar: ${CONFIG.aprobar} puntos.`;
-    
     const feedbackList = document.getElementById('feedback-list');
     feedbackList.innerHTML = '';
-    
     if (Object.keys(erroresAnalisis).length === 0) {
         feedbackList.innerHTML = `<div class="alert-info" style="border-left-color: var(--success)">🌟 ¡Excelente! Perfecto.</div>`;
     } else {
@@ -237,21 +236,33 @@ function verDetalleHistorico(index) {
         const div = document.createElement('div');
         div.className = 'review-item';
         div.style.borderLeft = `6px solid ${esCor ? 'var(--success)' : 'var(--danger)'}`;
+        
+        // Soporte de imagen en historial
+        let imgHTML = q.imagen ? `<img src="${q.imagen}" style="max-width: 100%; height: auto; display: block; margin: 10px 0; border-radius: 8px; border: 1px solid #eee;">` : '';
+
         div.innerHTML = `<p class="fw-bold">${idx + 1}. ${q.pregunta}</p>
+            ${imgHTML}
             <ul class="list-unstyled">${q.opciones.map((o,i) => `<li class="p-2 mb-1 rounded ${i===q.respuestaCorrecta?'correct-answer':(i===resUser?'wrong-answer':'')}" style="border:1px solid #eee">${String.fromCharCode(65+i)}) ${o} ${i===resUser?'👤':''}</li>`).join('')}</ul>
             <div class="explanation-box"><small><strong>Explicación:</strong> ${q.explicacion}</small></div>`;
         container.appendChild(div);
     });
 }
 
-// --- TEMARIOS Y REVISIÓN INMEDIATA ---
+// --- TEMARIOS ---
+const contenidoTemarios = {
+    B: { titulo: "🚗 Manual Pro: Clase B", cuerpo: `<div class="alert-info"><strong>Física:</strong> Distancia detención = Reacción + Frenado.</div>` },
+    C: { titulo: "🏍️ Manual Pro: Clase C", cuerpo: `<div class="alert-danger"><strong>Frenada:</strong> 70% delantero, 30% trasero.</div>` },
+    D: { titulo: "🚜 Manual Pro: Clase D", cuerpo: `<div class="alert-warning"><strong>Carga:</strong> Viaja a 15-25cm del suelo.</div>` }
+};
+
 function cambiarTemario(clase) {
     const contenedor = document.getElementById('resumen-teorico-container');
     if (contenedor) {
         contenedor.classList.remove('hidden');
-        contenedor.innerHTML = `<h4>${contenidoTemarios[clase].titulo}</h4><hr>
-            <div class="temario-texto">${contenidoTemarios[clase].cuerpo}</div>
-            <button class="btn-leer mt-3" style="background:var(--nav-blue)" onclick="window.scrollTo({top:0,behavior:'smooth'})">Subir ▲</button>`;
+        contenedor.innerHTML = `<div class="animate-in">
+                <h4>${contenidoTemarios[clase].titulo}</h4><hr>
+                <div class="temario-texto">${contenidoTemarios[clase].cuerpo}</div>
+                <button class="btn-leer mt-3" style="background:var(--nav-blue)" onclick="window.scrollTo({top:0,behavior:'smooth'})">Subir ▲</button></div>`;
         contenedor.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
@@ -267,7 +278,11 @@ function mostrarRevisionInmediata() {
         const div = document.createElement('div');
         div.className = 'review-item';
         div.style.borderLeft = `6px solid ${cor ? 'var(--success)' : 'var(--danger)'}`;
+        
+        let imgHTML = q.imagen ? `<img src="${q.imagen}" style="max-width: 100%; height: auto; display: block; margin: 10px 0; border-radius: 8px; border: 1px solid #eee;">` : '';
+
         div.innerHTML = `<p class="fw-bold">${idx + 1}. ${q.pregunta}</p>
+            ${imgHTML}
             <ul class="list-unstyled">${q.opciones.map((o,i) => `<li class="p-2 mb-1 rounded ${i===q.respuestaCorrecta?'correct-answer':(i===res?'wrong-answer':'')}" style="border:1px solid #eee">${String.fromCharCode(65+i)}) ${o} ${i===res?'👤':''}</li>`).join('')}</ul>
             <div class="explanation-box"><small><strong>Explicación:</strong> ${q.explicacion}</small></div>`;
         container.appendChild(div);
