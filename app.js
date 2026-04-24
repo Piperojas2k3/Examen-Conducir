@@ -391,3 +391,43 @@ function cambiarTemario(clase) {
         contenedor.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
+function mostrarRevisionInmediata() {
+    // Reutilizamos la pantalla de detalle que creamos para el historial
+    switchScreen('history-detail-screen');
+    const container = document.getElementById('history-review-container');
+    
+    container.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Revisión del Examen</h3>
+            <button class="btn-leer" onclick="switchScreen('result-screen')">⬅️ Volver al Puntaje</button>
+        </div>
+        <hr>
+    `;
+
+    // Usamos las preguntas que acabas de responder
+    questions.forEach((q, idx) => {
+        const resUsuario = userAnswers[idx];
+        const esCorrecta = resUsuario === q.respuestaCorrecta;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'review-item';
+        itemDiv.style.borderLeft = `6px solid ${esCorrecta ? 'var(--success)' : 'var(--danger)'}`;
+
+        let opcionesHTML = q.opciones.map((opt, i) => {
+            let claseExtra = '';
+            if (i === q.respuestaCorrecta) claseExtra = 'correct-answer';
+            else if (i === resUsuario && !esCorrecta) claseExtra = 'wrong-answer';
+            
+            return `<li class="p-2 mb-1 rounded ${claseExtra}" style="border: 1px solid #eee;">
+                ${String.fromCharCode(65 + i)}) ${opt} ${i === resUsuario ? '👤' : ''}
+            </li>`;
+        }).join('');
+
+        itemDiv.innerHTML = `
+            <p class="fw-bold">${idx + 1}. ${q.pregunta}</p>
+            <ul class="list-unstyled">${opcionesHTML}</ul>
+            <div class="explanation-box"><small><strong>Explicación:</strong> ${q.explicacion}</small></div>
+        `;
+        container.appendChild(itemDiv);
+    });
+}
