@@ -32,14 +32,26 @@ function switchScreen(screenId) {
 }
 // --- INICIO DEL EXAMEN ---
 async function startExam(clase) {
+    claseActual = clase; // Guardamos la clase para el conteo final
     const loadingMsg = document.getElementById('loading-msg');
     loadingMsg.classList.remove('hidden');
     
-    // Ajuste de reglas según Clase
-    if (clase === 'D') {
-        CONFIG.total = 12; CONFIG.aprobar = 10; CONFIG.tiempo = 15 * 60; CONFIG.maxScore = 12;
-    } else {
-        CONFIG.total = 35; CONFIG.aprobar = 33; CONFIG.tiempo = 45 * 60; CONFIG.maxScore = 38; 
+    // --- NUEVAS REGLAS OFICIALES ---
+    if (clase === 'B') {
+        CONFIG.total = 35; 
+        CONFIG.aprobar = 33; // 33 de 38 puntos
+        CONFIG.tiempo = 45 * 60;
+        CONFIG.maxScore = 38; 
+    } else if (clase === 'C') {
+        CONFIG.total = 20; 
+        CONFIG.aprobar = 15; // 15 de 20 puntos (75%)
+        CONFIG.tiempo = 35 * 60;
+        CONFIG.maxScore = 20; 
+    } else if (clase === 'D') {
+        CONFIG.total = 12; 
+        CONFIG.aprobar = 10; 
+        CONFIG.tiempo = 15 * 60;
+        CONFIG.maxScore = 12; 
     }
 
     try {
@@ -48,7 +60,7 @@ async function startExam(clase) {
         
         const data = await response.json();
         
-        // Filtra, aleatoriza y selecciona la cantidad de preguntas
+        // Filtra, aleatoriza y selecciona la cantidad según la clase
         questions = data.filter(q => q.clase === clase || q.clase === "Todas")
                         .sort(() => 0.5 - Math.random())
                         .slice(0, CONFIG.total);
@@ -70,61 +82,9 @@ async function startExam(clase) {
 
     } catch (error) {
         console.error(error);
-        alert("Error: Revisa que el archivo 'preguntas.json' esté en la misma carpeta.");
+        alert("Error al cargar las preguntas.");
     }
 }
-
-// --- MOSTRAR PREGUNTA ACTUAL ---
-function showQuestion() {
-    const q = questions[currentIdx];
-    const prevAnswer = userAnswers[currentIdx]; 
-    
-    document.getElementById('category-label').innerText = q.categoria;
-    document.getElementById('question-counter').innerText = `Pregunta ${currentIdx + 1} de ${questions.length}`;
-    document.getElementById('question-text').innerText = q.pregunta;
-    
-    const container = document.getElementById('options-container');
-    container.innerHTML = ''; 
-    
-    q.opciones.forEach((opt, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerText = `${String.fromCharCode(65 + index)}) ${opt}`; 
-        if (prevAnswer === index) btn.classList.add('selected');
-        btn.onclick = () => selectOption(index, btn);
-        container.appendChild(btn);
-    });
-
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-
-    if (currentIdx === 0) prevBtn.classList.add('hidden');
-    else prevBtn.classList.remove('hidden');
-
-    if (currentIdx === questions.length - 1) {
-        nextBtn.innerText = "Finalizar Examen 🏁";
-        nextBtn.classList.add('btn-danger'); // Usa el color rojo de style.css
-    } else {
-        nextBtn.innerText = "Siguiente ➡️";
-        nextBtn.classList.remove('btn-danger');
-    }
-
-    nextBtn.disabled = (prevAnswer === null);
-    updateProgress();
-}
-
-function selectOption(index, btn) {
-    userAnswers[currentIdx] = index; 
-    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    document.getElementById('next-btn').disabled = false;
-}
-
-document.getElementById('prev-btn').onclick = () => { if (currentIdx > 0) { currentIdx--; showQuestion(); } };
-document.getElementById('next-btn').onclick = () => {
-    if (currentIdx < questions.length - 1) { currentIdx++; showQuestion(); } 
-    else calcularYMostrarResultados(); 
-};
 
 function startTimer() {
     const timerEl = document.getElementById('timer');
