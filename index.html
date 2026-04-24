@@ -31,37 +31,34 @@
             </div>
         </section>
 
-      <section id="exams-menu-screen" class="screen">
-    <h2 class="text-center mb-4 text-primary fw-bold">Selecciona tu clase de examen</h2>
-    
-    <div class="menu-grid selection-grid">
-        
-        <div class="card card-seleccion clase-b-hover" onclick="startExam('B')">
-            <span class="icon-grande">🚗</span>
-            <h3>Clase B</h3>
-            <p>Automóvil</p>
-        </div>
+        <section id="exams-menu-screen" class="screen">
+            <h2 class="text-center mb-4 text-primary fw-bold">Selecciona tu clase de examen</h2>
+            
+            <div class="menu-grid selection-grid">
+                <div class="card card-seleccion clase-b-hover" onclick="startExam('B')">
+                    <span class="icon-grande">🚗</span>
+                    <h3>Clase B</h3>
+                    <p>Automóvil</p>
+                </div>
 
-        <div class="card card-seleccion clase-c-hover" onclick="startExam('C')">
-            <span class="icon-grande">🏍️</span>
-            <h3>Clase C</h3>
-            <p>Motocicleta</p>
-        </div>
+                <div class="card card-seleccion clase-c-hover" onclick="startExam('C')">
+                    <span class="icon-grande">🏍️</span>
+                    <h3>Clase C</h3>
+                    <p>Motocicleta</p>
+                </div>
 
-        <div class="card card-seleccion clase-d-hover" onclick="startExam('D')">
-            <span class="icon-grande">🚜</span>
-            <h3>Clase D</h3>
-            <p>Maquinaria</p>
-        </div>
+                <div class="card card-seleccion clase-d-hover" onclick="startExam('D')">
+                    <span class="icon-grande">🚜</span>
+                    <h3>Clase D</h3>
+                    <p>Maquinaria</p>
+                </div>
+            </div>
+            
+            <div id="loading-msg" class="hidden text-center mt-3 text-muted">
+                ⏳ Preparando banco de preguntas...
+            </div>
+        </section>
 
-    </div>
-    
-    <div id="loading-msg" class="hidden text-center mt-3 text-muted">
-        ⏳ Preparando banco de preguntas...
-    </div>
-</section>
-            <div id="loading-msg" class="hidden" style="margin-top: 15px; text-align: center;">Preparando banco de preguntas...</div>
-        </section> 
         <section id="quiz-screen" class="screen">
             <div class="quiz-top-bar">
                 <div id="timer-box">⏱️ <span id="timer">45:00</span></div>
@@ -93,8 +90,7 @@
 
                 <div class="card p-3 shadow-sm mb-4 text-start" style="background: #f8fafc; border-left: 5px solid var(--nav-blue);">
                     <h5 class="fw-bold">📊 Áreas a reforzar:</h5>
-                    <div id="feedback-list" class="mt-2">
-                        </div>
+                    <div id="feedback-list" class="mt-2"></div>
                 </div>
 
                 <div class="d-grid gap-2">
@@ -109,18 +105,17 @@
                 </div>
             </div>
         </section>
+
         <section id="history-screen" class="screen">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 style="margin-bottom: 0;">📊 Mi Historial de Exámenes</h2>
                 <button class="btn-leer" onclick="if(confirm('¿Seguro que quieres borrar todo el historial?')) { localStorage.removeItem('testpractic_history'); loadHistory(); }" style="background: var(--danger)">Borrar Todo</button>
             </div>
-            <div id="history-container">
-                </div>
+            <div id="history-container"></div>
         </section>
 
         <section id="history-detail-screen" class="screen">
-            <div id="history-review-container" class="card" style="text-align: left;">
-                </div>
+            <div id="history-review-container" class="card" style="text-align: left;"></div>
         </section>
 
         <section id="temarios-screen" class="screen">
@@ -145,8 +140,7 @@
                 </div>
             </div>
             
-            <div id="resumen-teorico-container" class="hidden">
-                </div>
+            <div id="resumen-teorico-container" class="hidden"></div>
         </section>
     </main>
 
