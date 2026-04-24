@@ -109,8 +109,17 @@
             </div>
         </section>
         <section id="history-screen" class="screen">
-            <h2 style="margin-bottom: 20px;">📊 Mi Historial de Exámenes</h2>
-            <div id="history-container"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin-bottom: 0;">📊 Mi Historial de Exámenes</h2>
+                <button class="btn-leer" onclick="if(confirm('¿Seguro que quieres borrar todo el historial?')) { localStorage.removeItem('testpractic_history'); loadHistory(); }" style="background: var(--danger)">Borrar Todo</button>
+            </div>
+            <div id="history-container">
+                </div>
+        </section>
+
+        <section id="history-detail-screen" class="screen">
+            <div id="history-review-container" class="card" style="text-align: left;">
+                </div>
         </section>
 
         <section id="temarios-screen" class="screen">
