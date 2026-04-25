@@ -1,0 +1,15 @@
+{
+  "titulo": "Manual del Nuevo Conductor - Clase B",
+  "capitulos": [
+    {
+      "titulo": "1. El problema de los siniestros de tránsito",
+      "contenido": "Los siniestros de tránsito son una de las principales causas de muerte en Chile, especialmente entre los jóvenes de 18 a 29 años. Es un error llamarlos 'accidentes', ya que el 90% son evitables.",
+      "puntos_clave": [
+        "Fallecen entre 4 y 5 personas diarias en las vías.",
+        "El costo de los siniestros alcanza el 2% del PIB en Chile.",
+        "La mayoría ocurre en zonas urbanas, pero los más fatales son en zonas rurales."
+      ],
+      "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/distancia-detencion.jpg"
+    }
+  ]
+}
