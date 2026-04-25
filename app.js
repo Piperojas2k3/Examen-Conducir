@@ -1,7 +1,6 @@
 // ==========================================
-// TESTPRACTIC — app.js v2.1
-// Mejoras: Selección corregible, Fisher-Yates, 
-// garantía críticas, modal imágenes.
+// TESTPRACTIC — app.js v2.2
+// Mejoras: Modo examen silencioso (sin feedback inmediato)
 // ==========================================
 
 // --- CONFIGURACIÓN ---
@@ -94,7 +93,7 @@ async function startExam(clase) {
 }
 
 // ==========================================
-// MOSTRAR PREGUNTA
+// MOSTRAR PREGUNTA (Sin feedback de color)
 // ==========================================
 function showQuestion() {
     const q = questions[currentIdx];
@@ -120,11 +119,9 @@ function showQuestion() {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         
-        // Si ya había contestado, aplicamos el feedback visual guardado
-        if (prevAnswer !== null) {
-            if (i === q.respuestaCorrecta) btn.classList.add('correct-answer');
-            if (i === prevAnswer && i !== q.respuestaCorrecta) btn.classList.add('wrong-answer');
-            if (i === prevAnswer) btn.classList.add('selected');
+        // Marcamos la opción elegida previamente (solo azul/seleccionado, NO verde/rojo)
+        if (prevAnswer === i) {
+            btn.classList.add('selected');
         }
 
         btn.textContent = `${String.fromCharCode(65 + i)}) ${opt}`;
@@ -134,7 +131,7 @@ function showQuestion() {
 
     const nextBtn = document.getElementById('next-btn');
     document.getElementById('prev-btn').classList.toggle('hidden', currentIdx === 0);
-    nextBtn.textContent = currentIdx === questions.length - 1 ? 'Finalizar 🏁' : 'Siguiente ➡️';
+    nextBtn.textContent = currentIdx === questions.length - 1 ? 'Finalizar Examen 🏁' : 'Siguiente ➡️';
     nextBtn.disabled = userAnswers[currentIdx] === null;
 
     document.getElementById('progress-bar').style.width = ((currentIdx + 1) / questions.length * 100) + '%';
@@ -145,19 +142,9 @@ function seleccionarRespuesta(idx) {
     
     userAnswers[currentIdx] = idx;
     const btns = document.querySelectorAll('.option-btn');
-    const correcta = questions[currentIdx].respuestaCorrecta;
 
     btns.forEach((btn, i) => {
-        // Quitamos clases previas para permitir la "corrección de dedo"
-        btn.classList.remove('selected', 'correct-answer', 'wrong-answer');
-        
-        // Aplicamos feedback visual
-        if (i === correcta) {
-            btn.classList.add('correct-answer');
-        } else if (i === idx && idx !== correcta) {
-            btn.classList.add('wrong-answer');
-        }
-        
+        btn.classList.remove('selected');
         if (i === idx) btn.classList.add('selected');
     });
 
@@ -193,7 +180,7 @@ function abrirModalImagen(src, titulo) {
             flex-direction:column;gap:16px;cursor:zoom-out;padding:20px;box-sizing:border-box;
         `;
         modal.innerHTML = `
-            <img id="modal-img" style="max-width:90vw;max-height:80vh;border-radius:12px;object-fit:contain;transition:transform 0.3s ease;">
+            <img id="modal-img" style="max-width:90vw;max-height:80vh;border-radius:12px;object-fit:contain;">
             <p id="modal-titulo" style="color:#fff;text-align:center;font-size:0.95rem;max-width:600px;line-height:1.5;"></p>
             <button onclick="cerrarModalImagen()" style="background:#fff;color:#1e3a8a;border:none;padding:10px 30px;border-radius:50px;font-weight:bold;cursor:pointer;">✕ Cerrar</button>
         `;
@@ -244,7 +231,7 @@ function calcularYMostrarResultados() {
 
     const status = document.getElementById('result-status');
     status.textContent = passed ? '¡APROBADO! ✅' : 'REPROBADO ❌';
-    status.className = passed ? 'text-success fw-bold display-4' : 'text-danger fw-bold display-4';
+    status.className = passed ? "text-success fw-bold display-4" : "text-danger fw-bold display-4";
 
     animarPuntaje(document.getElementById('user-score'), score);
     document.getElementById('max-score-display').textContent = maxPossible;
@@ -300,7 +287,7 @@ function startTimer() {
 }
 
 // ==========================================
-// HISTORIAL Y REVISIÓN
+// HISTORIAL Y REVISIÓN (Aquí sí se muestra el feedback)
 // ==========================================
 function saveToHistory(score, passed, errores, maxPossible) {
     let h = JSON.parse(localStorage.getItem('testpractic_history') || '[]');
@@ -347,8 +334,10 @@ function loadHistory() {
 function mostrarRevision(preguntas, respuestas, pantallaVolver) {
     switchScreen('history-detail-screen');
     const cont = document.getElementById('history-review-container');
+    const labelVolver = pantallaVolver === 'result-screen' ? '⬅️ Volver a Resultados' : '⬅️ Volver al Historial';
+
     cont.innerHTML = `
-        <button class="btn-leer mb-4" onclick="switchScreen('${pantallaVolver}')${pantallaVolver === 'history-screen' ? '; loadHistory()' : ''}">⬅️ Volver</button>
+        <button class="btn-leer mb-4" onclick="switchScreen('${pantallaVolver}')${pantallaVolver === 'history-screen' ? '; loadHistory()' : ''}">${labelVolver}</button>
         <h3 class="mb-3">Revisión Detallada</h3><hr>`;
 
     preguntas.forEach((q, i) => {
@@ -373,6 +362,7 @@ function mostrarRevisionInmediata() {
     mostrarRevision(questions, userAnswers, 'result-screen');
 }
 
+// --- TEMARIOS ---
 async function cambiarTemario(clase) {
     const cont = document.getElementById('resumen-teorico-container');
     cont.classList.remove('hidden');
