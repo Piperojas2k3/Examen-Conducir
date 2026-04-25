@@ -1,48 +1,112 @@
 {
-  "titulo": "Libro del Nuevo Conductor - Clase B (Edición Profesional)",
+  "titulo": "Manual Completo del Nuevo Conductor - Clase B",
   "capitulos": [
     {
       "titulo": "Capítulo 1: El problema de los siniestros de tránsito",
-      "contenido": "En Chile, la seguridad vial es un tema crítico. Los siniestros no son 'accidentes' porque no son producto del azar; son eventos prevenibles causados por decisiones humanas.",
+      "contenido": "En Chile, los siniestros de tránsito son la principal causa de muerte externa en jóvenes. El 90% de estos eventos se deben a errores humanos.",
       "puntos_clave": [
-        "Mueren entre 4 y 5 personas diariamente.",
-        "Los siniestros son la primera causa de muerte externa en jóvenes de 18 a 29 años.",
-        "El costo económico en Chile es del 2% del PIB (dinero que se gasta en salud y reparaciones).",
-        "El 90% de los choques ocurre por falla humana (alcohol, velocidad, distracción)."
+        "Fallecen entre 4 y 5 personas diarias.",
+        "Costo económico: 2% del PIB en Chile.",
+        "Población de riesgo: Hombres de 18 a 29 años.",
+        "Las zonas rurales concentran la mayor cantidad de fallecidos."
       ],
       "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/siniestralidad-chile.jpg"
     },
     {
       "titulo": "Capítulo 2: Los principios de la conducción",
-      "contenido": "Es fundamental entender la física que rige al vehículo. La fuerza con la que chocas depende de la velocidad y el peso.",
+      "contenido": "Es vital entender la física del vehículo: energía cinética, frenado y mantenimiento mecánico.",
       "puntos_clave": [
-        "Energía Cinética: Si duplicas la velocidad, la fuerza del impacto se cuadruplica (aumenta al cuadrado).",
-        "Distancia de Reacción: Es lo que recorres antes de pisar el freno. Se calcula multiplicando la primera cifra de la velocidad por 3 (Ej: a 70km/h -> 7x3 = 21 metros).",
-        "Distancia de Frenado: Es lo que recorre el auto tras pisar el freno. Se calcula: (Velocidad x Velocidad) / 100.",
-        "Los neumáticos con baja presión aumentan el consumo y el riesgo de reventón."
+        "Energía Cinética: Al doble de velocidad, la fuerza de impacto es 4 veces mayor.",
+        "Distancia de Detención = Reacción (Velocidad x 3) + Frenado (Velocidad x Velocidad / 100).",
+        "Neumáticos: El límite legal de surco es 1.6 mm. Presión baja aumenta consumo y riesgo.",
+        "Seguridad Pasiva: Cinturón, Airbag y Apoyacabezas (ajustado a la altura de los ojos)."
       ],
       "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/distancia-detencion.jpg"
     },
     {
       "titulo": "Capítulo 3: La Convivencia Vial",
-      "contenido": "La nueva ley busca proteger a los usuarios vulnerables: peatones, ciclistas y niños. Se basa en el respeto y no en la fuerza del vehículo.",
+      "contenido": "Se basa en el respeto a los usuarios vulnerables. El automóvil no tiene preferencia sobre la vida humana.",
       "puntos_clave": [
-        "Al adelantar a un ciclista, DEBES dejar al menos 1.5 metros de distancia lateral.",
-        "Las ciclovías son exclusivas para bicicletas y monopatines eléctricos; prohibidas para motos.",
-        "El peatón siempre tiene la preferencia en pasos de cebra y esquinas no reguladas.",
-        "Prohibido estacionar o circular sobre la vereda."
+        "Distancia lateral mínima con ciclistas: 1.5 metros.",
+        "El peatón siempre tiene preferencia en pasos de cebra y virajes.",
+        "Ciclovías: Uso exclusivo para ciclos (prohibido motos).",
+        "Prohibido circular o estacionar en veredas."
       ],
       "imagen": "https://www.conaset.cl/wp-content/uploads/2019/pare.png"
     },
     {
       "titulo": "Capítulo 4: El Individuo en el Tránsito",
-      "contenido": "Aquí se analiza cómo el estado físico afecta la conducción. La visión y la audición son los sentidos más importantes.",
+      "contenido": "El estado psicofísico del conductor es determinante. Visión, audición y reacciones cambian con el entorno.",
       "puntos_clave": [
-        "Efecto Túnel: A 100 km/h el campo visual se reduce a solo 42 grados.",
-        "Alcohol: 0.3 a 0.79 es 'Bajo la influencia'. 0.8 hacia arriba es 'Estado de ebriedad'.",
-        "Ley Emilia: Establece cárcel efectiva de al menos 1 año para quienes causen lesiones graves o muerte conduciendo ebrios.",
-        "Fatiga: El único remedio real es el descanso (dormir). El café o aire frío solo ocultan el síntoma brevemente."
+        "Efecto Túnel: A 100 km/h el ángulo de visión baja a solo 42 grados.",
+        "Alcohol: 'Bajo la influencia' (0.3 a 0.79 g/l) y 'Estado de Ebriedad' (0.8+ g/l).",
+        "Ley Emilia: Cárcel efectiva mínima de 1 año si causas lesiones graves o muerte ebrio.",
+        "Drogas: Marihuana altera percepción del tiempo; Cocaína produce agresividad."
+      ],
+      "imagen": "https://www.conaset.cl/wp-content/uploads/2019/12/alcohol-conduccion.png"
+    },
+    {
+      "titulo": "Capítulo 5: Usuarios Vulnerables",
+      "contenido": "Análisis de niños, peatones y ciclistas en el sistema vial.",
+      "puntos_clave": [
+        "Niños: Silla (SRI) obligatoria hasta los 9 años; ir atrás hasta los 12 años.",
+        "Adultos Mayores: Requieren más tiempo para cruzar y reaccionan más lento.",
+        "Motos: Su perfil angosto las hace difíciles de detectar en espejos."
+      ],
+      "imagen": "https://vialidad.mop.gob.cl/areasit/PublishingImages/Se%C3%B1alizaci%C3%B3n/P-45.png"
+    },
+    {
+      "titulo": "Capítulo 6: Normas de Circulación",
+      "contenido": "Reglas de tránsito: adelantamientos, virajes y señalización.",
+      "puntos_clave": [
+        "Preferencia: El vehículo de la derecha tiene preferencia en cruces no regulados.",
+        "Adelantamiento: Solo por la izquierda. Nunca en puentes, curvas o cruces ferroviarios.",
+        "Semáforos: Roja intermitente equivale a un PARE; Amarilla es prevención de roja.",
+        "Virajes: Avisar con 30 metros de anticipación."
+      ],
+      "imagen": "https://vialidad.mop.gob.cl/areasit/PublishingImages/Se%C3%B1alizaci%C3%B3n/R-2.png"
+    },
+    {
+      "titulo": "Capítulo 7: Conducción en Condiciones Especiales",
+      "contenido": "Manejo nocturno, lluvia, nieve y niebla.",
+      "puntos_clave": [
+        "Noche: Luces altas a bajas a 200 metros del otro vehículo.",
+        "Lluvia: Aquaplaning ocurre por exceso de velocidad sobre charcos.",
+        "Niebla: Luces bajas y neblineros; las altas se reflejan y ciegan.",
+        "Nieve: Usar la marcha más alta posible para no patinar."
+      ],
+      "imagen": "https://practicatest.cl/storage/posts/conduccion-noche-seguridad-vial-1616688537.jpg"
+    },
+    {
+      "titulo": "Capítulo 8: Conducción en Autopistas",
+      "contenido": "Reglas para vías de alta velocidad y flujo constante.",
+      "puntos_clave": [
+        "Ingreso: Usar la pista de aceleración para igualar la velocidad del flujo.",
+        "Pistas: Circular siempre por la derecha; izquierda solo para adelantar.",
+        "Emergencia: Detenerse solo en la berma y usar triángulos y chaleco reflectante.",
+        "Salida: Señalizar con tiempo e ingresar a la pista de deceleración."
       ]
+    },
+    {
+      "titulo": "Capítulo 9: Conducción Eficiente",
+      "contenido": "Técnicas para ahorrar combustible y reducir contaminación.",
+      "puntos_clave": [
+        "Cambio de marchas: En motores a gasolina, cambiar entre 2.000 y 2.500 RPM.",
+        "Freno de motor: Dejar de acelerar con la marcha engranada ahorra combustible.",
+        "Ralentí: Apagar el motor si la detención dura más de un minuto.",
+        "Mantenimiento: Neumáticos inflados reducen el gasto en un 3%."
+      ]
+    },
+    {
+      "titulo": "Capítulo 10: Señalización de Tránsito",
+      "contenido": "Clasificación de señales verticales y horizontales.",
+      "puntos_clave": [
+        "Reglamentarias (Rojas): Indican prioridad, prohibición u obligación.",
+        "Advertencia (Amarillas): Alertas sobre peligros permanentes en la vía.",
+        "Informativas (Azul/Verde): Guían sobre destinos y distancias.",
+        "Transitorias (Naranja): Advierten trabajos o reparaciones temporales."
+      ],
+      "imagen": "https://vialidad.mop.gob.cl/areasit/PublishingImages/Se%C3%B1alizaci%C3%B3n/R-10.png"
     }
   ]
 }
