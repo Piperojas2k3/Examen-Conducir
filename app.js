@@ -26,7 +26,7 @@ function switchScreen(screenId) {
     if (screenId === 'temarios-screen') document.getElementById('resumen-teorico-container')?.classList.add('hidden');
 }
 
-// --- MOTOR DE EXAMEN ---
+// --- MOTOR DE EXAMEN (Lógica de puntos 38 corregida) ---
 async function startExam(clase) {
     claseActual = clase;
     document.getElementById('loading-msg').classList.remove('hidden');
@@ -46,12 +46,6 @@ async function startExam(clase) {
             questions = [...criticas.slice(0, 3), ...normales.slice(0, 32)].sort(() => 0.5 - Math.random());
         } else {
             questions = bancoClase.sort(() => 0.5 - Math.random()).slice(0, CONFIG.total);
-        }
-
-        if (questions.length < CONFIG.total) {
-            alert("No hay suficientes preguntas en el archivo JSON.");
-            document.getElementById('loading-msg').classList.add('hidden');
-            return;
         }
 
         userAnswers = new Array(questions.length).fill(null);
@@ -192,39 +186,50 @@ function mostrarRevisionInmediata() {
     });
 }
 
-// --- NUEVA LÓGICA DE TEMARIOS DESDE CARPETA ---
+// --- NUEVA LÓGICA DE TEMARIOS DINÁMICOS ---
 async function cambiarTemario(clase) {
     const cont = document.getElementById('resumen-teorico-container');
     cont.classList.remove('hidden');
-    cont.innerHTML = `<div class="text-center p-5">⏳ Cargando Temario Oficial Clase ${clase}...</div>`;
+    
+    // Convertimos la letra a Mayúscula para buscar siempre clase_B.json, clase_C.json, etc.
+    const claseID = clase.toUpperCase();
+
+    cont.innerHTML = `<div class="text-center p-5">⏳ Cargando Temario Oficial Clase ${claseID}...</div>`;
 
     try {
-        const response = await fetch(`Temarios/clase_${clase}.json`);
-        if (!response.ok) throw new Error("No se encontró el archivo JSON");
+        // Buscamos en la carpeta Temarios/clase_B.json (por ejemplo)
+        const response = await fetch(`Temarios/clase_${claseID}.json`);
+        if (!response.ok) throw new Error("No se encontró el archivo");
         const data = await response.json();
 
         let capitulosHTML = data.capitulos.map(cap => `
-            <div class="card mb-4 text-start" style="border-left: 6px solid var(--nav-blue); padding: 25px;">
+            <div class="card mb-4 text-start" style="border-left: 6px solid var(--nav-blue); padding: 25px; box-shadow: var(--shadow);">
                 <h4 class="fw-bold" style="color: var(--primary-blue);">${cap.titulo}</h4>
-                <p style="font-size: 1.1rem;">${cap.contenido}</p>
+                <p style="font-size: 1.1rem; color: #334155;">${cap.contenido}</p>
                 ${cap.puntos_clave ? `
                     <div class="alert-info p-3 rounded mt-3">
                         <h6 class="fw-bold">Puntos clave:</h6>
-                        <ul>${cap.puntos_clave.map(p => `<li>${p}</li>`).join('')}</ul>
+                        <ul class="mb-0">${cap.puntos_clave.map(p => `<li>${p}</li>`).join('')}</ul>
                     </div>` : ''}
-                ${cap.imagen ? `<img src="${cap.imagen}" class="img-fluid rounded mt-3 shadow-sm">` : ''}
+                ${cap.imagen ? `<img src="${cap.imagen}" class="img-fluid rounded mt-3 shadow-sm" style="max-width:100%; height:auto;">` : ''}
             </div>
         `).join('');
 
         cont.innerHTML = `
             <div class="animate-in">
-                <h2 class="fw-bold">${data.titulo}</h2><hr class="mb-4">
+                <h2 class="fw-bold" style="color: var(--primary-blue)">${data.titulo}</h2><hr class="mb-4">
                 ${capitulosHTML}
-                <button class="btn-hero" style="width: auto;" onclick="window.scrollTo({top:0, behavior:'smooth'})">Subir ▲</button>
+                <button class="btn-hero" style="width: auto; padding: 10px 40px;" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲ VOLVER AL INICIO</button>
             </div>
         `;
     } catch (e) {
-        cont.innerHTML = `<div class="alert-danger p-4">❌ Error: Verifica que los archivos JSON estén en la carpeta /Temarios.</div>`;
+        console.error("Error al cargar JSON:", e);
+        cont.innerHTML = `
+            <div class="alert-danger p-4 text-center">
+                <h4>❌ Error de conexión</h4>
+                <p>No pudimos leer el archivo: <b>Temarios/clase_${claseID}.json</b></p>
+                <small>Verifica que el nombre en GitHub sea exacto (clase_B.json) y presiona Ctrl+F5.</small>
+            </div>`;
     }
     cont.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
