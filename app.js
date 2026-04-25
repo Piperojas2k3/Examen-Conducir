@@ -26,12 +26,11 @@ function switchScreen(screenId) {
     if (screenId === 'temarios-screen') document.getElementById('resumen-teorico-container')?.classList.add('hidden');
 }
 
-// --- MOTOR DE EXAMEN (Lógica de puntos corregida) ---
+// --- MOTOR DE EXAMEN ---
 async function startExam(clase) {
     claseActual = clase;
     document.getElementById('loading-msg').classList.remove('hidden');
     
-    // Configuración oficial por Clase
     if (clase === 'B') { CONFIG.total = 35; CONFIG.aprobar = 33; CONFIG.tiempo = 45 * 60; CONFIG.maxScore = 38; }
     else if (clase === 'C') { CONFIG.total = 20; CONFIG.aprobar = 15; CONFIG.tiempo = 35 * 60; CONFIG.maxScore = 20; }
     else if (clase === 'D') { CONFIG.total = 12; CONFIG.aprobar = 10; CONFIG.tiempo = 15 * 60; CONFIG.maxScore = 12; }
@@ -42,7 +41,6 @@ async function startExam(clase) {
         let bancoClase = data.filter(q => q.clase === clase || q.clase === "Todas");
 
         if (clase === 'B') {
-            // Regla Clase B: Siempre 3 críticas y 32 normales para sumar 38 pts
             let criticas = bancoClase.filter(q => q.esCritica).sort(() => 0.5 - Math.random());
             let normales = bancoClase.filter(q => !q.esCritica).sort(() => 0.5 - Math.random());
             questions = [...criticas.slice(0, 3), ...normales.slice(0, 32)].sort(() => 0.5 - Math.random());
@@ -62,7 +60,7 @@ async function startExam(clase) {
         switchScreen('quiz-screen');
         showQuestion();
         startTimer();
-    } catch (e) { alert("Error cargando preguntas. Revisa el archivo JSON."); }
+    } catch (e) { alert("Error cargando preguntas."); }
 }
 
 function showQuestion() {
@@ -71,7 +69,6 @@ function showQuestion() {
     const imgCont = document.getElementById('image-container');
     const imgEl = document.getElementById('question-image');
 
-    // Soporte para imágenes
     if (q.imagen) { imgEl.src = q.imagen; imgCont.classList.remove('hidden'); } 
     else { imgCont.classList.add('hidden'); }
     
@@ -102,28 +99,20 @@ document.getElementById('next-btn').onclick = () => {
 };
 document.getElementById('prev-btn').onclick = () => { if (currentIdx > 0) { currentIdx--; showQuestion(); } };
 
-// --- RESULTADOS (Cálculo exacto) ---
+// --- RESULTADOS ---
 function calcularYMostrarResultados() {
     clearInterval(timerInterval);
-    let score = 0;
-    let maxPossible = 0;
-    let criticasUsadas = 0; 
-    let errores = {};
+    let score = 0, maxPossible = 0, criticasUsadas = 0, errores = {};
     
     questions.forEach((q, i) => {
-        let pts = 1;
-        // Solo las primeras 3 críticas valen doble en Clase B
-        if (claseActual === 'B' && q.esCritica && criticasUsadas < 3) {
-            pts = 2;
-            criticasUsadas++;
-        }
+        let pts = (claseActual === 'B' && q.esCritica && criticasUsadas < 3) ? 2 : 1;
+        if (pts === 2) criticasUsadas++;
         maxPossible += pts;
         if (userAnswers[i] === q.respuestaCorrecta) score += pts;
         else errores[q.categoria] = (errores[q.categoria] || 0) + 1;
     });
     
     if (claseActual === 'B') maxPossible = 38;
-
     const passed = score >= CONFIG.aprobar;
     saveToHistory(score, passed, errores, maxPossible);
     switchScreen('result-screen');
@@ -131,15 +120,14 @@ function calcularYMostrarResultados() {
     const status = document.getElementById('result-status');
     status.innerText = passed ? "¡APROBADO! ✅" : "REPROBADO ❌";
     status.className = passed ? "text-success fw-bold display-4" : "text-danger fw-bold display-4";
-    
     document.getElementById('user-score').innerText = score;
     document.getElementById('max-score-display').innerText = maxPossible;
     document.getElementById('pass-fail-msg').innerText = `Mínimo para aprobar: ${CONFIG.aprobar} puntos.`;
     
     const fb = document.getElementById('feedback-list');
-    fb.innerHTML = Object.keys(errores).length ? '' : '<div class="alert-info">¡Excelente trabajo! No tuviste errores.</div>';
+    fb.innerHTML = Object.keys(errores).length ? '' : '<div class="alert-info">¡Perfecto!</div>';
     Object.keys(errores).forEach(c => {
-        fb.innerHTML += `<div class="alert-info mb-2"><strong>${c}:</strong> ${RECOMENDACIONES[c] || "Repasar manual oficial."}</div>`;
+        fb.innerHTML += `<div class="alert-info mb-2"><strong>${c}:</strong> ${RECOMENDACIONES[c] || "Repasar manual."}</div>`;
     });
 }
 
@@ -155,17 +143,15 @@ function startTimer() {
 // --- HISTORIAL Y REVISIÓN ---
 function saveToHistory(s, p, e, m) {
     let h = JSON.parse(localStorage.getItem('testpractic_history')) || [];
-    h.unshift({ 
-        fecha: new Date().toLocaleString('es-CL'), puntaje: s, maximo: m, estado: p, 
-        preguntas: JSON.parse(JSON.stringify(questions)), respuestas: [...userAnswers] 
-    });
+    h.unshift({ fecha: new Date().toLocaleString('es-CL'), puntaje: s, maximo: m, estado: p, 
+                preguntas: JSON.parse(JSON.stringify(questions)), respuestas: [...userAnswers] });
     localStorage.setItem('testpractic_history', JSON.stringify(h));
 }
 
 function loadHistory() {
     const cont = document.getElementById('history-container');
     let h = JSON.parse(localStorage.getItem('testpractic_history')) || [];
-    cont.innerHTML = h.length ? '' : '<p class="text-center p-4">Aún no tienes exámenes guardados.</p>';
+    cont.innerHTML = h.length ? '' : '<p class="text-center p-4">Sin registros.</p>';
     h.forEach((item, i) => {
         let div = document.createElement('div');
         div.className = 'card-estudio mb-3 d-flex justify-content-between align-items-center text-start';
@@ -181,7 +167,7 @@ function verDetalleHistorico(idx) {
     let h = JSON.parse(localStorage.getItem('testpractic_history'))[idx];
     switchScreen('history-detail-screen');
     const cont = document.getElementById('history-review-container');
-    cont.innerHTML = `<button class="btn-leer mb-4" onclick="switchScreen('history-screen')">⬅️ Volver al Historial</button><h3>Revisión de Ensayo</h3><hr>`;
+    cont.innerHTML = `<button class="btn-leer mb-4" onclick="switchScreen('history-screen')">⬅️ Volver</button><h3>Revisión</h3><hr>`;
     h.preguntas.forEach((q, i) => {
         let cor = h.respuestas[i] === q.respuestaCorrecta;
         let img = q.imagen ? `<img src="${q.imagen}" style="max-width:250px; display:block; margin:10px 0; border-radius:8px;">` : '';
@@ -195,7 +181,7 @@ function verDetalleHistorico(idx) {
 function mostrarRevisionInmediata() {
     switchScreen('history-detail-screen');
     const cont = document.getElementById('history-review-container');
-    cont.innerHTML = `<button class="btn-leer mb-4" onclick="switchScreen('result-screen')">⬅️ Volver al Puntaje</button><h3>Revisión Detallada</h3><hr>`;
+    cont.innerHTML = `<button class="btn-leer mb-4" onclick="switchScreen('result-screen')">⬅️ Volver</button><h3>Revisión Detallada</h3><hr>`;
     questions.forEach((q, i) => {
         let cor = userAnswers[i] === q.respuestaCorrecta;
         let img = q.imagen ? `<img src="${q.imagen}" style="max-width:250px; display:block; margin:10px 0; border-radius:8px;">` : '';
@@ -206,17 +192,39 @@ function mostrarRevisionInmediata() {
     });
 }
 
-const contenidoTemarios = {
-    B: { titulo: "🚗 Clase B: Automóviles", cuerpo: `<div class="alert-info"><b>Física:</b> Detención = Reacción + Frenado.</div>` },
-    C: { titulo: "🏍️ Clase C: Motocicletas", cuerpo: `<div class="alert-danger"><b>Técnica:</b> 70% freno delantero, 30% trasero.</div>` },
-    D: { titulo: "🚜 Clase D: Maquinaria", cuerpo: `<div class="alert-warning"><b>Seguridad:</b> Carga baja a 15cm del suelo.</div>` }
-};
-
-function cambiarTemario(clase) {
+// --- NUEVA LÓGICA DE TEMARIOS DESDE CARPETA ---
+async function cambiarTemario(clase) {
     const cont = document.getElementById('resumen-teorico-container');
     cont.classList.remove('hidden');
-    cont.innerHTML = `<div class="animate-in"><h4>${contenidoTemarios[clase].titulo}</h4><hr>
-                      <div class="temario-texto">${contenidoTemarios[clase].cuerpo}</div>
-                      <button class="btn-leer mt-3" style="background:var(--nav-blue)" onclick="window.scrollTo({top:0,behavior:'smooth'})">Subir ▲</button></div>`;
-    cont.scrollIntoView({ behavior: 'smooth' });
+    cont.innerHTML = `<div class="text-center p-5">⏳ Cargando Temario Oficial Clase ${clase}...</div>`;
+
+    try {
+        const response = await fetch(`Temarios/clase_${clase}.json`);
+        if (!response.ok) throw new Error("No se encontró el archivo JSON");
+        const data = await response.json();
+
+        let capitulosHTML = data.capitulos.map(cap => `
+            <div class="card mb-4 text-start" style="border-left: 6px solid var(--nav-blue); padding: 25px;">
+                <h4 class="fw-bold" style="color: var(--primary-blue);">${cap.titulo}</h4>
+                <p style="font-size: 1.1rem;">${cap.contenido}</p>
+                ${cap.puntos_clave ? `
+                    <div class="alert-info p-3 rounded mt-3">
+                        <h6 class="fw-bold">Puntos clave:</h6>
+                        <ul>${cap.puntos_clave.map(p => `<li>${p}</li>`).join('')}</ul>
+                    </div>` : ''}
+                ${cap.imagen ? `<img src="${cap.imagen}" class="img-fluid rounded mt-3 shadow-sm">` : ''}
+            </div>
+        `).join('');
+
+        cont.innerHTML = `
+            <div class="animate-in">
+                <h2 class="fw-bold">${data.titulo}</h2><hr class="mb-4">
+                ${capitulosHTML}
+                <button class="btn-hero" style="width: auto;" onclick="window.scrollTo({top:0, behavior:'smooth'})">Subir ▲</button>
+            </div>
+        `;
+    } catch (e) {
+        cont.innerHTML = `<div class="alert-danger p-4">❌ Error: Verifica que los archivos JSON estén en la carpeta /Temarios.</div>`;
+    }
+    cont.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
