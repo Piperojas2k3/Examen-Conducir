@@ -1,0 +1,24 @@
+{
+  "titulo": "Manual del Nuevo Conductor Motociclista - Clase C",
+  "capitulos": [
+    {
+      "titulo": "1. Seguridad y Equipo de Protección",
+      "contenido": "El casco es el elemento más importante. Debe ser certificado y de la talla correcta.",
+      "puntos_clave": [
+        "Uso obligatorio de guantes resistentes a la abrasión.",
+        "Calzado que cubra el tobillo.",
+        "Protección ocular (visera o antiparras)."
+      ],
+      "imagen": "https://practicatest.cl/storage/temario/C/equipo_moto.jpg"
+    },
+    {
+      "titulo": "2. Técnicas de Frenado y Curvas",
+      "contenido": "Frenar en moto requiere técnica para evitar bloqueos.",
+      "puntos_clave": [
+        "70% del frenado es con la rueda delantera.",
+        "Técnica de Contramanillar para curvas sobre 35 km/h.",
+        "Mirar siempre a la salida de la curva."
+      ]
+    }
+  ]
+}
