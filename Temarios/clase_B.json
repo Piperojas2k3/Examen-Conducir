@@ -13,3 +13,37 @@
     }
   ]
 }
+{
+  "titulo": "Manual del Nuevo Conductor - Clase B (Completo)",
+  "capitulos": [
+    {
+      "titulo": "Capítulo 1: El problema de los siniestros de tránsito",
+      "contenido": "Los siniestros no son azarosos. En Chile, la mayoría de los fallecidos son jóvenes. El costo humano y económico es enorme (2% del PIB).",
+      "puntos_clave": [
+        "Fallecen 4 a 5 personas diarias.",
+        "90% de los siniestros son por falla humana.",
+        "La mayoría de fallecidos son hombres de 18 a 29 años."
+      ],
+      "imagen": "https://practicatest.cl/storage/temario/B/cap1_siniestros.jpg"
+    },
+    {
+      "titulo": "Capítulo 2: Los principios de la conducción",
+      "contenido": "Explica la física del auto. Funcionamiento del motor, sistema de frenado y la importancia de los neumáticos.",
+      "puntos_clave": [
+        "Energía Cinética: aumenta al cuadrado de la velocidad.",
+        "Distancia de Reacción: Velocidad x 3 / 10.",
+        "Distancia de Frenado: Velocidad x Velocidad / 100."
+      ],
+      "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/distancia-detencion.jpg"
+    },
+    {
+      "titulo": "Capítulo 3: Convivencia Vial",
+      "contenido": "Nuevas leyes que protegen a ciclistas y peatones. El respeto mutuo es la base de la seguridad.",
+      "puntos_clave": [
+        "1.5 metros de distancia mínima al adelantar ciclos.",
+        "Prohibición de circular por la vereda.",
+        "Prioridad absoluta al peatón en pasos de cebra."
+      ]
+    }
+  ]
+}
