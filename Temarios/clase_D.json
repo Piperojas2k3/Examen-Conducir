@@ -1,0 +1,24 @@
+{
+  "titulo": "Manual de Maquinaria Pesada - Clase D",
+  "capitulos": [
+    {
+      "titulo": "1. Estabilidad y Carga",
+      "contenido": "La maquinaria se rige por el triángulo de estabilidad.",
+      "puntos_clave": [
+        "Carga siempre a 15-20 cm del suelo.",
+        "No girar con la carga elevada.",
+        "Respetar la placa de capacidades del fabricante."
+      ],
+      "imagen": "https://img.interempresas.net/fotos/2220464.jpeg"
+    },
+    {
+      "titulo": "2. Normas de Seguridad en Faena",
+      "contenido": "Seguridad activa y pasiva del operador.",
+      "puntos_clave": [
+        "Regla de los 3 puntos de apoyo al subir/bajar.",
+        "Uso obligatorio de estructuras ROPS y FOPS.",
+        "Alarma de retroceso obligatoria en funcionamiento."
+      ]
+    }
+  ]
+}
