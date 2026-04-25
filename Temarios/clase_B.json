@@ -1,48 +1,47 @@
 {
-  "titulo": "Manual del Nuevo Conductor - Clase B",
-  "capitulos": [
-    {
-      "titulo": "1. El problema de los siniestros de tránsito",
-      "contenido": "Los siniestros de tránsito son una de las principales causas de muerte en Chile, especialmente entre los jóvenes de 18 a 29 años. Es un error llamarlos 'accidentes', ya que el 90% son evitables.",
-      "puntos_clave": [
-        "Fallecen entre 4 y 5 personas diarias en las vías.",
-        "El costo de los siniestros alcanza el 2% del PIB en Chile.",
-        "La mayoría ocurre en zonas urbanas, pero los más fatales son en zonas rurales."
-      ],
-      "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/distancia-detencion.jpg"
-    }
-  ]
-}
-{
-  "titulo": "Manual del Nuevo Conductor - Clase B (Completo)",
+  "titulo": "Libro del Nuevo Conductor - Clase B (Edición Profesional)",
   "capitulos": [
     {
       "titulo": "Capítulo 1: El problema de los siniestros de tránsito",
-      "contenido": "Los siniestros no son azarosos. En Chile, la mayoría de los fallecidos son jóvenes. El costo humano y económico es enorme (2% del PIB).",
+      "contenido": "En Chile, la seguridad vial es un tema crítico. Los siniestros no son 'accidentes' porque no son producto del azar; son eventos prevenibles causados por decisiones humanas.",
       "puntos_clave": [
-        "Fallecen 4 a 5 personas diarias.",
-        "90% de los siniestros son por falla humana.",
-        "La mayoría de fallecidos son hombres de 18 a 29 años."
+        "Mueren entre 4 y 5 personas diariamente.",
+        "Los siniestros son la primera causa de muerte externa en jóvenes de 18 a 29 años.",
+        "El costo económico en Chile es del 2% del PIB (dinero que se gasta en salud y reparaciones).",
+        "El 90% de los choques ocurre por falla humana (alcohol, velocidad, distracción)."
       ],
-      "imagen": "https://practicatest.cl/storage/temario/B/cap1_siniestros.jpg"
+      "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/siniestralidad-chile.jpg"
     },
     {
       "titulo": "Capítulo 2: Los principios de la conducción",
-      "contenido": "Explica la física del auto. Funcionamiento del motor, sistema de frenado y la importancia de los neumáticos.",
+      "contenido": "Es fundamental entender la física que rige al vehículo. La fuerza con la que chocas depende de la velocidad y el peso.",
       "puntos_clave": [
-        "Energía Cinética: aumenta al cuadrado de la velocidad.",
-        "Distancia de Reacción: Velocidad x 3 / 10.",
-        "Distancia de Frenado: Velocidad x Velocidad / 100."
+        "Energía Cinética: Si duplicas la velocidad, la fuerza del impacto se cuadruplica (aumenta al cuadrado).",
+        "Distancia de Reacción: Es lo que recorres antes de pisar el freno. Se calcula multiplicando la primera cifra de la velocidad por 3 (Ej: a 70km/h -> 7x3 = 21 metros).",
+        "Distancia de Frenado: Es lo que recorre el auto tras pisar el freno. Se calcula: (Velocidad x Velocidad) / 100.",
+        "Los neumáticos con baja presión aumentan el consumo y el riesgo de reventón."
       ],
       "imagen": "https://www.conaset.cl/wp-content/uploads/2021/11/distancia-detencion.jpg"
     },
     {
-      "titulo": "Capítulo 3: Convivencia Vial",
-      "contenido": "Nuevas leyes que protegen a ciclistas y peatones. El respeto mutuo es la base de la seguridad.",
+      "titulo": "Capítulo 3: La Convivencia Vial",
+      "contenido": "La nueva ley busca proteger a los usuarios vulnerables: peatones, ciclistas y niños. Se basa en el respeto y no en la fuerza del vehículo.",
       "puntos_clave": [
-        "1.5 metros de distancia mínima al adelantar ciclos.",
-        "Prohibición de circular por la vereda.",
-        "Prioridad absoluta al peatón en pasos de cebra."
+        "Al adelantar a un ciclista, DEBES dejar al menos 1.5 metros de distancia lateral.",
+        "Las ciclovías son exclusivas para bicicletas y monopatines eléctricos; prohibidas para motos.",
+        "El peatón siempre tiene la preferencia en pasos de cebra y esquinas no reguladas.",
+        "Prohibido estacionar o circular sobre la vereda."
+      ],
+      "imagen": "https://www.conaset.cl/wp-content/uploads/2019/pare.png"
+    },
+    {
+      "titulo": "Capítulo 4: El Individuo en el Tránsito",
+      "contenido": "Aquí se analiza cómo el estado físico afecta la conducción. La visión y la audición son los sentidos más importantes.",
+      "puntos_clave": [
+        "Efecto Túnel: A 100 km/h el campo visual se reduce a solo 42 grados.",
+        "Alcohol: 0.3 a 0.79 es 'Bajo la influencia'. 0.8 hacia arriba es 'Estado de ebriedad'.",
+        "Ley Emilia: Establece cárcel efectiva de al menos 1 año para quienes causen lesiones graves o muerte conduciendo ebrios.",
+        "Fatiga: El único remedio real es el descanso (dormir). El café o aire frío solo ocultan el síntoma brevemente."
       ]
     }
   ]
